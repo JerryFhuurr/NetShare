@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "361699786872",
+    "project_id": "netshare-f4723",
+    "storage_bucket": "netshare-f4723.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:361699786872:android:ae143a826e54e19679ed8d",
+        "android_client_info": {
+          "package_name": "com.and.netshare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "361699786872-do5prfvdvbvoldkvs0fm3c6pf69uog4e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGtVjVHAl-yTK_qje28yQmBO5x5hSauB8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "361699786872-do5prfvdvbvoldkvs0fm3c6pf69uog4e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
