@@ -12,6 +12,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,6 +40,7 @@ public class LoginFragment extends Fragment {
     private Button loginButton;
     private FirebaseAuth mAuth;
     private TextView forgetPassword;
+    private Button registerButton;
 
     public static LoginFragment newInstance() {
         return new LoginFragment();
@@ -54,6 +56,7 @@ public class LoginFragment extends Fragment {
         loginButton = v.findViewById(R.id.button_login);
         mAuth = FirebaseAuth.getInstance();
         forgetPassword = v.findViewById(R.id.login_forget);
+        registerButton = v.findViewById(R.id.button_register);
         return v;
     }
 
@@ -120,6 +123,13 @@ public class LoginFragment extends Fragment {
                     }
                 });
                 resetPassword.show();
+            }
+        });
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_loginFragment_to_registerFragment);
             }
         });
     }
