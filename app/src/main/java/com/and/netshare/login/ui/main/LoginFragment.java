@@ -2,8 +2,10 @@ package com.and.netshare.login.ui.main;
 
 import static android.content.ContentValues.TAG;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -17,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.and.netshare.MainActivity;
@@ -35,6 +38,7 @@ public class LoginFragment extends Fragment {
     private EditText passwordText;
     private Button loginButton;
     private FirebaseAuth mAuth;
+    private TextView forgetPassword;
 
     public static LoginFragment newInstance() {
         return new LoginFragment();
@@ -49,6 +53,7 @@ public class LoginFragment extends Fragment {
         passwordText = v.findViewById(R.id.password_login);
         loginButton = v.findViewById(R.id.button_login);
         mAuth = FirebaseAuth.getInstance();
+        forgetPassword = v.findViewById(R.id.login_forget);
         return v;
     }
 
@@ -82,6 +87,41 @@ public class LoginFragment extends Fragment {
             }
         });
 
+        forgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder resetPassword = new AlertDialog.Builder(getContext());
+                resetPassword.setTitle(R.string.login_reset_title);
+                resetPassword.setMessage(R.string.login_reset_body);
+                final EditText reset_email = new EditText(getContext());
+                resetPassword.setView(reset_email);
+                resetPassword.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String email = reset_email.getText().toString();
+                        mAuth.sendPasswordResetEmail(email)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Log.d(TAG, "Email sent.");
+                                            Toast.makeText(getContext(), R.string.login_reset_ok, Toast.LENGTH_SHORT).show();
+                                        }
+                                        //add error if the email isn't exist
+                                    }
+                                });
+                    }
+                });
+
+                resetPassword.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+                resetPassword.show();
+            }
+        });
     }
 
     @Override
