@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.and.netshare.login.ui.main.LoginFragment"
-        android:label="Login"
+        android:label="@string/login_button_login"
         tools:layout="@layout/login_fragment" >
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.and.netshare.login.ui.main.RegisterFragment"
-        android:label="Register"
+        android:label="@string/login_button_register"
         tools:layout="@layout/fragment_register" >
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"

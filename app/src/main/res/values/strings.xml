@@ -17,6 +17,14 @@
     <string name="login_reset_title">Reset password</string>
     <string name="login_reset_body">Enter email here to reset</string>
     <string name="login_reset_ok">Email has been sent!</string>
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- register -->
+    <string name="register_title">Register</string>
+    <string name="register_email">Your email</string>
+    <string name="register_email_hint">This will be your username</string>
+    <string name="register_password">Password</string>
+    <string name="register_password_r">Repeat password</string>
+    <string name="register_ok">Register</string>
+    <string name="register_change_login">Already have account? Login here</string>
+    <string name="register_error">Invalid email address or Password does not match !</string>
+    <string name="register_info">Register success !</string>
 </resources>

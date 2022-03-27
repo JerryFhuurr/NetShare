@@ -78,7 +78,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_weight="0.0001"
-                android:autofillHints=""
                 android:ems="10"
                 android:hint="@string/login_password_hint"
                 android:inputType="textPassword"
