@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">NetShare</string>
+    <!-- main -->
+    <string name="main_login_info">Please login first</string>
+    <string name="main_info">Welcome! </string>
+    <!-- login -->
+    <string name="login_email">Email</string>
+    <string name="login_password">Password</string>
+    <string name="login_email_hint">Enter email here</string>
+    <string name="login_password_hint">Your password</string>
+    <string name="login_button_login">Login</string>
+    <string name="login_button_register">Register</string>
+    <string name="login_forget">Forget password?</string>
+    <string name="login_toast1">A username already exists</string>
+    <string name="login_fail_toast">Invalid email or password</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
