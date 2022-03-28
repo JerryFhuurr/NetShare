@@ -64,6 +64,7 @@ public class LoginFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,7 +84,6 @@ public class LoginFragment extends Fragment {
                                     Log.w(TAG, "signInWithEmail:failure", task.getException());
                                     Toast.makeText(getContext(), R.string.login_fail_toast,
                                             Toast.LENGTH_SHORT).show();
-                                    updateUI(null);
                                 }
                             }
                         });

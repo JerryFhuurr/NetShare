@@ -1,5 +1,6 @@
 package com.and.netshare.login.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.and.netshare.MainActivity;
 import com.and.netshare.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -74,13 +76,14 @@ public class RegisterFragment extends Fragment {
                 String password1 = password.getText().toString();
                 String password2 = password_repeat.getText().toString();
 
-                if (emailString.matches(REGEX_EMAIL) && (password1.trim()).equals(password2.trim())) {
+                if (emailString.matches(REGEX_EMAIL) && (password1.trim()).equals(password2.trim()) && password1.length() > 6) {
                     registerAuth.createUserWithEmailAndPassword(emailString, password1)
                             .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()){
                                         Toast.makeText(getContext(), R.string.register_info, Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(getActivity(), MainActivity.class));
                                     }
                                 }
                             });
