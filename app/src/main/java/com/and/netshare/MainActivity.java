@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NavController navController;
     private AppBarConfiguration configuration;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,27 +42,26 @@ public class MainActivity extends AppCompatActivity {
         setupNavigation();
     }
 
-    private void initView(){
+    private void initView() {
         drawerLayout = findViewById(R.id.main_drawer);
         bottomNavigationView = findViewById(R.id.bottom_navbar);
         toolbar = findViewById(R.id.topBar);
     }
 
-    private void setupNavigation(){
+    private void setupNavigation() {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         setSupportActionBar(toolbar);
 
         configuration = new AppBarConfiguration.Builder(R.id.homePageFragment)
                 .setOpenableLayout(drawerLayout).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, configuration);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
         setBottomNavigationView();
     }
 
-    private void setBottomNavigationView(){
+    private void setBottomNavigationView() {
         navController.addOnDestinationChangedListener(((navController1, navDestination, bundle) -> {
             final int id = navDestination.getId();
-            if (id == R.id.homePageFragment  || id == R.id.userFragment){
+            if (id == R.id.homePageFragment || id == R.id.userFragment) {
                 bottomNavigationView.setVisibility(View.VISIBLE);
             } else {
                 bottomNavigationView.setVisibility(View.GONE);
@@ -69,17 +69,17 @@ public class MainActivity extends AppCompatActivity {
         }));
     }
 
-    private void checkUser(FirebaseUser currentUser){
-        if (currentUser != null){
+    private void checkUser(FirebaseUser currentUser) {
+        if (currentUser != null) {
             Toast.makeText(this, getString(R.string.main_info) + currentUser.getEmail(), Toast.LENGTH_SHORT).show();
-        }else {
+        } else {
             Toast.makeText(this, R.string.main_login_info, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         }
     }
 
-    public void logoutTest(View v){
+    public void logoutTest(View v) {
         FirebaseAuth.getInstance().signOut();
         FirebaseUser firebaseUser = mainAuth.getCurrentUser();
         checkUser(firebaseUser);

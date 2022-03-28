@@ -40,7 +40,6 @@ public class LoginActivity extends AppCompatActivity {
 
         configuration = new AppBarConfiguration.Builder(R.id.homePageFragment)
                 .setOpenableLayout(drawerLayout).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, configuration);
     }
 
 }

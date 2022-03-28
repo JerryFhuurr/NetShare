@@ -24,7 +24,6 @@
                 android:background="?attr/colorPrimary" />
         </com.google.android.material.appbar.AppBarLayout>
 
-
         <!-- bottom -->
         <LinearLayout
             android:id="@+id/main_container"

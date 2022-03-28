@@ -3,9 +3,9 @@
     <item
         android:id="@+id/homePageFragment"
         android:icon="@drawable/home_icon"
-        android:title="Home" />
+        android:title="@string/home_title" />
     <item
         android:id="@id/userFragment"
         android:icon="@drawable/user_icon"
-        android:title="User" />
+        android:title="@string/user_title" />
 </menu>

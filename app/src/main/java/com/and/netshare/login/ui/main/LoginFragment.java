@@ -102,6 +102,7 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String email = reset_email.getText().toString();
+
                         mAuth.sendPasswordResetEmail(email)
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override

@@ -8,11 +8,11 @@
     <fragment
         android:id="@+id/homePageFragment"
         android:name="com.and.netshare.home.HomePageFragment"
-        android:label="fragment_home_page"
+        android:label="@string/home_title"
         tools:layout="@layout/fragment_home_page" />
     <fragment
         android:id="@+id/userFragment"
         android:name="com.and.netshare.home.UserFragment"
-        android:label="UserFragment"
+        android:label="@string/user_title"
         tools:layout="@layout/fragment_user"/>
 </navigation>
