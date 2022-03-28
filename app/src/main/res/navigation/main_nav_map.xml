@@ -13,5 +13,6 @@
     <fragment
         android:id="@+id/userFragment"
         android:name="com.and.netshare.home.UserFragment"
-        android:label="UserFragment" />
+        android:label="UserFragment"
+        tools:layout="@layout/fragment_user"/>
 </navigation>
