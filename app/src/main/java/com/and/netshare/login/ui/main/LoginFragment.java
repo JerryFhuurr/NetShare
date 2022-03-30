@@ -30,6 +30,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class LoginFragment extends Fragment {
@@ -102,7 +107,10 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String email = reset_email.getText().toString();
+                        String emailE = emailEncode(email);
+                        Log.v("email replace", emailE);
 
+                        //TODO 添加查找邮箱地址是否存在
                         mAuth.sendPasswordResetEmail(email)
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
@@ -114,6 +122,7 @@ public class LoginFragment extends Fragment {
                                         //add error if the email isn't exist
                                     }
                                 });
+
                     }
                 });
 
@@ -152,5 +161,9 @@ public class LoginFragment extends Fragment {
     private void updateUI(FirebaseUser user) {
         mAuth.updateCurrentUser(user);
         startActivity(new Intent(getActivity(), MainActivity.class));
+    }
+
+    private String emailEncode(String email){
+        return email.replace(".", ",");
     }
 }

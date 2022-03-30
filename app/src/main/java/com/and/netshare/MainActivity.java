@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         checkUser(firebaseUser);
         initView();
         setupNavigation();
+
     }
 
     private void initView() {

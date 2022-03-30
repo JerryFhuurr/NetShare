@@ -16,7 +16,8 @@
     <!-- login reset -->
     <string name="login_reset_title">Reset password</string>
     <string name="login_reset_body">Enter email here to reset</string>
-    <string name="login_reset_ok">Email has been sent!</string>
+    <string name="login_reset_ok">Email has been sent !</string>
+    <string name="login_reset_error">Cannot find this email !</string>
     <!-- register -->
     <string name="register_title">Register</string>
     <string name="register_email">Your email</string>
@@ -33,6 +34,10 @@
 
     <!-- User -->
     <string name="user_title">User</string>
+    <string name="user_item1">Account</string>
+    <string name="user_item2">About</string>
+    <string name="user_item3">Settings</string>
+    <string name="user_item4">Logout</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
