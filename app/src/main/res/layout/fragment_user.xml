@@ -56,8 +56,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp"
-            android:paddingHorizontal="10dp"
+            android:paddingTop="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/user_header_container">
@@ -68,32 +67,40 @@
                 android:orientation="vertical">
                 <Button
                     android:id="@+id/user_account"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    style="@style/user_button_style"
                     android:text="@string/user_item1"
                     android:drawableLeft="@drawable/account_icon"
                     android:drawableRight="@drawable/next_icon" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp" />
+
                 <Button
                     android:id="@+id/user_about"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    style="@style/user_button_style"
                     android:text="@string/user_item2"
                     android:drawableLeft="@drawable/about_icon"
                     android:drawableRight="@drawable/next_icon" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp" />
+
                 <Button
                     android:id="@+id/user_settings"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    style="@style/user_button_style"
                     android:text="@string/user_item3"
                     android:drawableLeft="@drawable/settings_icon"
                     android:drawableRight="@drawable/next_icon" />
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp" />
+
                 <Button
                     android:id="@+id/user_logout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    style="@style/user_button_style"
                     android:text="@string/user_item4"
                     android:drawableLeft="@drawable/logout_icon"
                     android:drawableRight="@drawable/next_icon" />

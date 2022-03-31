@@ -18,4 +18,15 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <!-- button style in user fragment -->
+    <style name="user_button_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:textColor">@color/DimGrey</item>
+        <item name="android:gravity">center|left</item>
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    </style>
 </resources>
