@@ -57,7 +57,7 @@
                     android:textSize="20dp" />
 
                 <Button
-                    android:id="@+id/account_change_email"
+                    android:id="@+id/account_change_name"
                     style="@style/edit_button_style"
                     android:layout_weight="5"
                     android:drawableLeft="@drawable/edit_icon"
