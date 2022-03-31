@@ -6,6 +6,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
@@ -80,9 +81,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void logoutTest(View v) {
+    public void logoutUser(View v) {
         FirebaseAuth.getInstance().signOut();
         FirebaseUser firebaseUser = mainAuth.getCurrentUser();
         checkUser(firebaseUser);
+    }
+
+    public void updateEmail(View v){
+
+    }
+
+    public void updatePassword(View v){
+
     }
 }

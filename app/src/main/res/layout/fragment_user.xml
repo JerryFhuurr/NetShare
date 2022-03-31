@@ -102,6 +102,7 @@
                     android:id="@+id/user_logout"
                     style="@style/user_button_style"
                     android:text="@string/user_item4"
+                    android:onClick="logoutUser"
                     android:drawableLeft="@drawable/logout_icon"
                     android:drawableRight="@drawable/next_icon" />
             </LinearLayout>

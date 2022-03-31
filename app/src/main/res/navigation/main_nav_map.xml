@@ -14,5 +14,18 @@
         android:id="@+id/userFragment"
         android:name="com.and.netshare.home.userlist.UserFragment"
         android:label="@string/user_title"
-        tools:layout="@layout/fragment_user"/>
+        tools:layout="@layout/fragment_user">
+        <action
+            android:id="@+id/action_userFragment_to_accountFragment"
+            app:destination="@id/accountFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.and.netshare.home.userlist.AccountFragment"
+        android:label="fragment_account"
+        tools:layout="@layout/fragment_account" >
+        <action
+            android:id="@+id/action_accountFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+    </fragment>
 </navigation>

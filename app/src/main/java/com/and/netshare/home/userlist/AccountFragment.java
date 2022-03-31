@@ -3,35 +3,25 @@ package com.and.netshare.home.userlist;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.and.netshare.MainActivity;
 import com.and.netshare.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.ArrayList;
+public class AccountFragment extends Fragment {
 
-public class UserFragment extends Fragment {
-
+    private EditText userName;
     private TextView userEmail;
-    private TextView userNameText;
+
     private FirebaseAuth userAuth;
     private FirebaseUser currentUser;
-
-    private Button account;
-
-    public UserFragment() {
+    public AccountFragment() {
         // Required empty public constructor
     }
 
@@ -46,22 +36,11 @@ public class UserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_user, container, false);
-        userEmail = v.findViewById(R.id.user_email);
-        account = v.findViewById(R.id.user_account);
-        userNameText = v.findViewById(R.id.user_name);
-        userNameText.setText(currentUser.getDisplayName());
+        View v = inflater.inflate(R.layout.fragment_account, container, false);
+        userName = v.findViewById(R.id.accountName);
+        userEmail = v.findViewById(R.id.userEmail);
+        userName.setText(currentUser.getDisplayName());
         userEmail.setText(currentUser.getEmail());
-
-
-        account.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(UserFragment.this).navigate(R.id.action_userFragment_to_accountFragment);
-            }
-        });
-
-
         return v;
     }
 }
