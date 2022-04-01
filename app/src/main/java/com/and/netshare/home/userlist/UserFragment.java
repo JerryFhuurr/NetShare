@@ -30,6 +30,7 @@ public class UserFragment extends Fragment {
     private FirebaseUser currentUser;
 
     private Button account;
+    private Button about;
 
     public UserFragment() {
         // Required empty public constructor
@@ -48,7 +49,10 @@ public class UserFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_user, container, false);
         userEmail = v.findViewById(R.id.user_email);
+
         account = v.findViewById(R.id.user_account);
+        about = v.findViewById(R.id.user_about);
+
         userNameText = v.findViewById(R.id.user_name);
         userNameText.setText(currentUser.getDisplayName());
         userEmail.setText(currentUser.getEmail());
@@ -61,6 +65,12 @@ public class UserFragment extends Fragment {
             }
         });
 
+        about.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(UserFragment.this).navigate(R.id.action_userFragment_to_aboutFragment);
+            }
+        });
 
         return v;
     }

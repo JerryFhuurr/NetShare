@@ -47,5 +47,10 @@
     <string name="account_setUsername">Username updated !</string>
     <string name="account_resetPassword">An email has been sent to your email, please check it and finish reset password.</string>
 
+    <!-- about -->
+    <string name="about_author">Author email :</string>
+    <string name="about_git">Github link :</string>
+    <string name="about_copyLink">Link copied to clipboard.</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
