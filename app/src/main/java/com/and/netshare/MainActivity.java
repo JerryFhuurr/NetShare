@@ -87,11 +87,4 @@ public class MainActivity extends AppCompatActivity {
         checkUser(firebaseUser);
     }
 
-    public void updateEmail(View v){
-
-    }
-
-    public void updatePassword(View v){
-
-    }
 }

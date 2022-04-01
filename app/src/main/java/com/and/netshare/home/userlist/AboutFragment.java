@@ -3,6 +3,7 @@ package com.and.netshare.home.userlist;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -17,9 +18,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.and.netshare.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class AboutFragment extends Fragment {
 
+    private FirebaseAuth userAuth;
+    private FirebaseUser currentUser;
     private TextView gitLink;
     private TextView emailLink;
     private TextView version;
@@ -31,6 +36,8 @@ public class AboutFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        userAuth = FirebaseAuth.getInstance();
+        currentUser = userAuth.getCurrentUser();
     }
 
     @Override
@@ -50,6 +57,17 @@ public class AboutFragment extends Fragment {
                 clipboardManager.setPrimaryClip(clipData);
                 Toast.makeText(getActivity(), R.string.about_copyLink, Toast.LENGTH_LONG).show();
                 return false;
+            }
+        });
+
+        emailLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"fhuurr@163.com"});
+                intent.putExtra(Intent.EXTRA_SUBJECT, "A message from " + currentUser.getEmail());
+                startActivity(intent);
             }
         });
 
