@@ -31,6 +31,7 @@ public class UserFragment extends Fragment {
 
     private Button account;
     private Button about;
+    private Button settings;
 
     public UserFragment() {
         // Required empty public constructor
@@ -52,6 +53,7 @@ public class UserFragment extends Fragment {
 
         account = v.findViewById(R.id.user_account);
         about = v.findViewById(R.id.user_about);
+        settings = v.findViewById(R.id.user_settings);
 
         userNameText = v.findViewById(R.id.user_name);
         userNameText.setText(currentUser.getDisplayName());
@@ -69,6 +71,13 @@ public class UserFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(UserFragment.this).navigate(R.id.action_userFragment_to_aboutFragment);
+            }
+        });
+
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(UserFragment.this).navigate(R.id.action_userFragment_to_settingsFragment);
             }
         });
 

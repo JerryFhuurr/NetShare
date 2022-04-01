@@ -53,4 +53,25 @@
     <string name="about_copyLink">Link copied to clipboard.</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Appearance</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="reply_title">Theme</string>
+
+    <!-- Second Preferences -->
+    <string name="homepage_settings_title">Home page appearance</string>
+    <string name="homepage_settings_attachment">Display name of images</string>
+    <string name="attachment_summary_on">The name and username will display below each image
+    </string>
+    <string name="attachment_summary_off">Only display the image</string>
+    <string name="type_row_title">Type of view</string>
+    <string name="type_row_sON">Single</string>
+    <string name="type_row_sOFF">Double</string>
+
+    <!-- themes titles -->
+    <string name="settings_theme_title1">Follow system</string>
+    <string name="settings_theme_title2">Light</string>
+    <string name="settings_theme_title3">Dark</string>
 </resources>

@@ -1,0 +1,33 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/messages_header">
+
+        <ListPreference
+            app:defaultValue="follow_system"
+            app:entries="@array/themes_titles"
+            app:entryValues="@array/themes_values"
+            app:key="theme_type"
+            app:title="@string/reply_title"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/homepage_settings_title">
+
+        <SwitchPreferenceCompat
+            app:key="image_name"
+            app:summaryOff="@string/attachment_summary_off"
+            app:summaryOn="@string/attachment_summary_on"
+            app:title="@string/homepage_settings_attachment" />
+
+        <!-- app:dependency="image_name" -->
+        <SwitchPreferenceCompat
+            app:key="type_row"
+            app:summaryOff="@string/type_row_sOFF"
+            app:summaryOn="@string/type_row_sON"
+            app:title="@string/type_row_title" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
