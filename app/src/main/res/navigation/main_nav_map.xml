@@ -9,7 +9,11 @@
         android:id="@+id/homePageFragment"
         android:name="com.and.netshare.home.homepage.HomePageFragment"
         android:label="@string/home_title"
-        tools:layout="@layout/fragment_home_page" />
+        tools:layout="@layout/fragment_home_page" >
+        <action
+            android:id="@+id/action_homePageFragment_to_uploadFragment"
+            app:destination="@id/uploadFragment" />
+    </fragment>
     <fragment
         android:id="@+id/userFragment"
         android:name="com.and.netshare.home.userlist.UserFragment"
@@ -50,5 +54,14 @@
         <action
             android:id="@+id/action_settingsFragment_to_userFragment"
             app:destination="@id/userFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/uploadFragment"
+        android:name="com.and.netshare.UploadFragment"
+        android:label="fragment_upload"
+        tools:layout="@layout/fragment_upload" >
+        <action
+            android:id="@+id/action_uploadFragment_to_homePageFragment"
+            app:destination="@id/homePageFragment" />
     </fragment>
 </navigation>

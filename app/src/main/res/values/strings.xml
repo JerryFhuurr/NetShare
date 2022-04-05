@@ -74,4 +74,12 @@
     <string name="settings_theme_title1">Follow system</string>
     <string name="settings_theme_title2">Light</string>
     <string name="settings_theme_title3">Dark</string>
+
+    <!-- upload -->
+    <string name="upload_local_title">Choose local file</string>
+    <string name="upload_camera_title">Take images from camera</string>
+    <string name="upload_upload_title">Upload</string>
+    <string name="upload_permission">You have authorized</string>
+    <string name="upload_permission_ok">Get permission</string>
+    <string name="upload_permission_no">Cannot get permission</string>
 </resources>

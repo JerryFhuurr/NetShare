@@ -4,7 +4,7 @@ public class HomePageBasicSettings {
     private boolean displayName;
     private boolean isSingle;
 
-    public HomePageBasicSettings(){
+    public HomePageBasicSettings() {
         this.displayName = false;
         this.isSingle = false;
     }
