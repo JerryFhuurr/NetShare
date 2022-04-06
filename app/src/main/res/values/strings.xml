@@ -76,10 +76,16 @@
     <string name="settings_theme_title3">Dark</string>
 
     <!-- upload -->
+    <string name="upload_imageName">Name (Default is filename)</string>
+    <string name="upload_imageCat">Category</string>
+    <string name="upload_imageSize">Size</string>
     <string name="upload_local_title">Choose local file</string>
     <string name="upload_camera_title">Take images from camera</string>
     <string name="upload_upload_title">Upload</string>
     <string name="upload_permission">You have authorized</string>
     <string name="upload_permission_ok">Get permission</string>
     <string name="upload_permission_no">Cannot get permission</string>
+    <string name="upload_failed">Upload failed, please check your settings</string>
+    <string name="upload_success">Upload success</string>
+    <string name="upload_file_error">Image too large !</string>
 </resources>

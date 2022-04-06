@@ -11,4 +11,10 @@
         <item>light</item>
         <item>dark</item>
     </string-array>
+
+    <string-array name="image_category">
+        <item>ACG image</item>
+        <item>Meme</item>
+        <item>Game image</item>
+    </string-array>
 </resources>

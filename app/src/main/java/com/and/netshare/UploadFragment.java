@@ -1,54 +1,57 @@
 package com.and.netshare;
 
-import static android.app.Activity.RESULT_OK;
-
-import android.Manifest;
-import android.content.ContentResolver;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 
 public class UploadFragment extends Fragment {
 
     private Button choose_local;
-    private Button choose_camera;
+    //private Button choose_camera;
     private Button upload;
     private ImageView preview;
     private Uri imageURI;
     private FirebaseStorage storage;
+    private EditText imageName;
+    private Spinner imageCat;
+    private String imageCategory;
+    private StorageReference storageRef;
+    //private final String filePath = Environment.getExternalStorageDirectory() + File.separator + "output_image.jpg";
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         storage = FirebaseStorage.getInstance();
+        imageCategory = "";
+        chooseImageDefault();
     }
 
     @Override
@@ -56,12 +59,12 @@ public class UploadFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_upload, container, false);
-        StorageReference storageRef = storage.getReference();
 
-        choose_camera = v.findViewById(R.id.choose_camera);
         choose_local = v.findViewById(R.id.choose_local);
         upload = v.findViewById(R.id.upload);
         preview = v.findViewById(R.id.image_preview);
+        imageName = v.findViewById(R.id.image_name);
+        imageCat = v.findViewById(R.id.imageCat);
 
         choose_local.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,13 +75,6 @@ public class UploadFragment extends Fragment {
             }
         });
 
-        choose_camera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,46 +82,85 @@ public class UploadFragment extends Fragment {
                 preview.buildDrawingCache();
                 Bitmap bitmap = ((BitmapDrawable) preview.getDrawable()).getBitmap();
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 95, outputStream);
                 byte[] data = outputStream.toByteArray();
 
-                StorageReference localRef = storageRef.child(imageURI.getLastPathSegment() + ".jpeg");
+                if (imageCategory.equals("ACG image")){
+                    Log.v("working1", "acg");
+                    storageRef = storage.getReference().child("acg_images");
+                } else if (imageCategory.equals("Meme")){
+                    Log.v("working2", "meme");
+                    storageRef = storage.getReference().child("memes");
+                } else if (imageCategory.equals("Game image")){
+                    Log.v("working3", "game");
+                    storageRef = storage.getReference().child("game_images");
+                }
+                StorageReference localRef = storageRef.child(imageURI.getLastPathSegment());
                 UploadTask uploadTask = localRef.putBytes(data);
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {
-                        Log.v("failed", "upload failed");
                         // Handle unsuccessful uploads
+                        Log.v("failed", "upload failed");
+                        Snackbar.make(getView(), R.string.upload_failed, Snackbar.LENGTH_SHORT).show();
                     }
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         Log.v("success", "upload success");
                         // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                        // ...
+                        Toast.makeText(getContext(), R.string.upload_success, Toast.LENGTH_SHORT).show();
+                        NavHostFragment.findNavController(UploadFragment.this).navigate(R.id.action_uploadFragment_to_homePageFragment);
                     }
                 });
             }
         });
+
+        imageCat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                imageCategory = imageCat.getSelectedItem().toString();
+                Log.i("image cat", imageCategory);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         return v;
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 2) {
-            if (data != null) {
-                imageURI = data.getData();
-                Log.i("uri of image", imageURI.getPath());
-                Log.i("uri of image", imageURI.getLastPathSegment());
-                Log.i("uri of image", imageURI.getEncodedPath());
-                Log.i("uri of image", imageURI.getPathSegments().toString());
-
-                preview.setImageURI(imageURI);
-            }
-        } else {
-            //operation error or not select image
-            Log.i("MainActivtiy", "operation error");
-        }
         super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            //1 -> camera ; 2 -> local file
+            case 2:
+                if (data != null) {
+                    try {
+                        imageURI = data.getData();
+                        imageName.setText(imageURI.getLastPathSegment());
+
+                        preview.setImageURI(imageURI);
+                    } catch (RuntimeException e){
+                        Log.e("file error", e.getMessage());
+                        Toast.makeText(getContext(), R.string.upload_file_error, Toast.LENGTH_SHORT).show();
+                    }
+
+                    break;
+                }
+            default:
+                //operation error or not select image
+                Log.i("upload fragment", "operation error");
+                break;
+        }
+    }
+
+    private void chooseImageDefault() {
+        Intent local = new Intent(Intent.ACTION_PICK, null);
+        local.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+        startActivityForResult(local, 2);
     }
 }

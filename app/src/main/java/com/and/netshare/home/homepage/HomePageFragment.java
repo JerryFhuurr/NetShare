@@ -1,15 +1,13 @@
 package com.and.netshare.home.homepage;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.and.netshare.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -21,7 +19,7 @@ public class HomePageFragment extends Fragment {
     private HomePageSettingsViewModel hpViewModel;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private StorageReference ref = storage.getReference();
-    private FloatingActionButton cameraButton;
+    private FloatingActionButton uploadButton;
 
     public HomePageFragment() {
         // Required empty public constructor
@@ -37,21 +35,15 @@ public class HomePageFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home_page, container, false);
-        cameraButton = v.findViewById(R.id.home_floatButton);
-        Button button = v.findViewById(R.id.testButton);
-        button.setOnClickListener(new View.OnClickListener() {
+        uploadButton = v.findViewById(R.id.home_floatButton);
+        uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(HomePageFragment.this).navigate(R.id.action_homePageFragment_to_uploadFragment);
             }
         });
-
-        cameraButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
         return v;
     }
+
+
 }
