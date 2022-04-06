@@ -2,8 +2,10 @@ package com.and.netshare;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.ImageDecoder;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -43,6 +45,7 @@ public class UploadFragment extends Fragment {
     private Spinner imageCat;
     private String imageCategory;
     private StorageReference storageRef;
+    private Bitmap imageGet;
     //private final String filePath = Environment.getExternalStorageDirectory() + File.separator + "output_image.jpg";
 
 
@@ -78,20 +81,23 @@ public class UploadFragment extends Fragment {
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*
                 preview.setDrawingCacheEnabled(true);
                 preview.buildDrawingCache();
                 Bitmap bitmap = ((BitmapDrawable) preview.getDrawable()).getBitmap();
+
+                 */
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 95, outputStream);
+                imageGet.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
                 byte[] data = outputStream.toByteArray();
 
-                if (imageCategory.equals("ACG image")){
+                if (imageCategory.equals("ACG image")) {
                     Log.v("working1", "acg");
                     storageRef = storage.getReference().child("acg_images");
-                } else if (imageCategory.equals("Meme")){
+                } else if (imageCategory.equals("Meme")) {
                     Log.v("working2", "meme");
                     storageRef = storage.getReference().child("memes");
-                } else if (imageCategory.equals("Game image")){
+                } else if (imageCategory.equals("Game image")) {
                     Log.v("working3", "game");
                     storageRef = storage.getReference().child("game_images");
                 }
@@ -125,7 +131,7 @@ public class UploadFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
+                //no func
             }
         });
 
@@ -143,12 +149,26 @@ public class UploadFragment extends Fragment {
                         imageURI = data.getData();
                         imageName.setText(imageURI.getLastPathSegment());
 
-                        preview.setImageURI(imageURI);
-                    } catch (RuntimeException e){
+                        //should scale the size of image
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                            imageGet = ImageDecoder.decodeBitmap(ImageDecoder.createSource(getActivity().getContentResolver(), imageURI));
+                        } else
+                            imageGet = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageURI);
+                        Log.i("size", String.valueOf(imageGet.getByteCount()));
+                        //if image is larger than 2.8MB, use scaled bitmap
+                        if (imageGet.getByteCount() >= 16000000) {
+                            final Bitmap scaledBitmap = Bitmap.createScaledBitmap(imageGet,
+                                    (int) (imageGet.getWidth() * 0.5)
+                                    , (int) (imageGet.getHeight() * 0.5)
+                                    , true);
+                            preview.setImageBitmap(scaledBitmap);
+                        } else {
+                            preview.setImageBitmap(imageGet);
+                        }
+                    } catch (Exception e) {
                         Log.e("file error", e.getMessage());
                         Toast.makeText(getContext(), R.string.upload_file_error, Toast.LENGTH_SHORT).show();
                     }
-
                     break;
                 }
             default:
