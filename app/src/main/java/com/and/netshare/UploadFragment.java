@@ -46,6 +46,7 @@ public class UploadFragment extends Fragment {
     private String imageCategory;
     private StorageReference storageRef;
     private Bitmap imageGet;
+    private TextView sizeError;
     //private final String filePath = Environment.getExternalStorageDirectory() + File.separator + "output_image.jpg";
 
 
@@ -68,6 +69,7 @@ public class UploadFragment extends Fragment {
         preview = v.findViewById(R.id.image_preview);
         imageName = v.findViewById(R.id.image_name);
         imageCat = v.findViewById(R.id.imageCat);
+        sizeError = v.findViewById(R.id.preview_sizeError);
 
         choose_local.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,6 +163,7 @@ public class UploadFragment extends Fragment {
                                     (int) (imageGet.getWidth() * 0.5)
                                     , (int) (imageGet.getHeight() * 0.5)
                                     , true);
+                            sizeError.setText(R.string.upload_size_error);
                             preview.setImageBitmap(scaledBitmap);
                         } else {
                             preview.setImageBitmap(imageGet);

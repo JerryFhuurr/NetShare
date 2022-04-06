@@ -88,4 +88,5 @@
     <string name="upload_failed">Upload failed, please check your settings</string>
     <string name="upload_success">Upload success</string>
     <string name="upload_file_error">Image too large !</string>
+    <string name="upload_size_error">The file is too large, the preview image will be compressed</string>
 </resources>
