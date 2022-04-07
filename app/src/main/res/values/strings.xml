@@ -21,7 +21,7 @@
     <!-- register -->
     <string name="register_title">Register</string>
     <string name="register_email">Your email</string>
-    <string name="register_email_hint">This will be your username</string>
+    <string name="register_email_hint">Enter your email here</string>
     <string name="register_password">Password</string>
     <string name="register_password_r">Repeat password</string>
     <string name="register_ok">Register</string>

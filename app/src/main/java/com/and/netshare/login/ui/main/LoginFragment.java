@@ -73,7 +73,7 @@ public class LoginFragment extends Fragment {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mViewModel.setEmail(emailText.getText().toString());
+                mViewModel.setEmail(emailText.getText().toString().trim());
                 mViewModel.setPassword(passwordText.getText().toString());
                 mAuth.signInWithEmailAndPassword(mViewModel.getEmail(), mViewModel.getPassword())
                         .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
