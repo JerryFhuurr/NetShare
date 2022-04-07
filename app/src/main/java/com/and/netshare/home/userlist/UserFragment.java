@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.and.netshare.MainActivity;
 import com.and.netshare.R;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -49,6 +50,7 @@ public class UserFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_user, container, false);
+
         userEmail = v.findViewById(R.id.user_email);
 
         account = v.findViewById(R.id.user_account);

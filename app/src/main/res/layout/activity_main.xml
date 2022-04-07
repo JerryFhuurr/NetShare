@@ -20,8 +20,9 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/topBar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="wrap_content"
                 android:background="?attr/colorPrimary" />
+
         </com.google.android.material.appbar.AppBarLayout>
 
         <!-- bottom -->
@@ -30,15 +31,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingTop="?attr/actionBarSize"
-            android:weightSum="6">
+            android:paddingTop="?attr/actionBarSize">
 
             <fragment
                 android:id="@+id/nav_host_fragment"
                 android:name="androidx.navigation.fragment.NavHostFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="0.6"
+                android:layout_weight="1"
                 app:defaultNavHost="true"
                 app:navGraph="@navigation/main_nav_map" />
 
@@ -46,7 +46,7 @@
                 android:id="@+id/bottom_navbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="5.4"
+                android:layout_weight="11"
                 android:background="?android:attr/windowBackground"
                 app:menu="@menu/bottom_menu" />
         </LinearLayout>

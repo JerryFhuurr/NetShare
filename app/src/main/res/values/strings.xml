@@ -89,4 +89,9 @@
     <string name="upload_success">Upload success</string>
     <string name="upload_file_error">Image too large !</string>
     <string name="upload_size_error">The file is too large, the preview image will be compressed</string>
+
+    <!-- home -->
+    <string name="tab_1">Anime</string>
+    <string name="tab_2">Meme</string>
+    <string name="tab_3">Game</string>
 </resources>
