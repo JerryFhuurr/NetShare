@@ -38,7 +38,6 @@ public class AnimeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         storage = FirebaseStorage.getInstance();
-
     }
 
     @Override
@@ -47,7 +46,7 @@ public class AnimeFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_anime, container, false);
         StorageReference listRef = storage.getReference().child("acg_images");
-
+        imageList.clear();
         images = v.findViewById(R.id.anime_recycle);
 
         images.hasFixedSize();
@@ -70,7 +69,6 @@ public class AnimeFragment extends Fragment {
                         Log.e("home failure", e.getMessage());
                     }
                 });
-
 
         return v;
     }

@@ -27,11 +27,14 @@ import com.and.netshare.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 
 public class UploadFragment extends Fragment {
 
@@ -47,6 +50,7 @@ public class UploadFragment extends Fragment {
     private StorageReference storageRef;
     private Bitmap imageGet;
     private TextView sizeError;
+    private FirebaseUser currentUser;
     //private final String filePath = Environment.getExternalStorageDirectory() + File.separator + "output_image.jpg";
 
 
@@ -54,6 +58,7 @@ public class UploadFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         storage = FirebaseStorage.getInstance();
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
         imageCategory = "";
         chooseImageDefault();
     }
@@ -83,27 +88,24 @@ public class UploadFragment extends Fragment {
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*
-                preview.setDrawingCacheEnabled(true);
-                preview.buildDrawingCache();
-                Bitmap bitmap = ((BitmapDrawable) preview.getDrawable()).getBitmap();
-
-                 */
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                imageGet.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+                imageGet.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
                 byte[] data = outputStream.toByteArray();
 
                 if (imageCategory.equals("ACG image")) {
-                    Log.v("working1", "acg");
                     storageRef = storage.getReference().child("acg_images");
                 } else if (imageCategory.equals("Meme")) {
-                    Log.v("working2", "meme");
                     storageRef = storage.getReference().child("memes");
                 } else if (imageCategory.equals("Game image")) {
-                    Log.v("working3", "game");
                     storageRef = storage.getReference().child("game_images");
                 }
-                StorageReference localRef = storageRef.child(imageURI.getLastPathSegment());
+                String uploadName = "";
+                if (imageName.getText().equals("")) {
+                    uploadName = System.currentTimeMillis() + "+" + currentUser.getEmail() + "_" + imageURI.getLastPathSegment();
+                } else {
+                    uploadName = System.currentTimeMillis() + "+" + currentUser.getEmail() + "_" + imageName.getText().toString();
+                }
+                StorageReference localRef = storageRef.child(uploadName);
                 UploadTask uploadTask = localRef.putBytes(data);
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -149,7 +151,8 @@ public class UploadFragment extends Fragment {
                 if (data != null) {
                     try {
                         imageURI = data.getData();
-                        imageName.setText(imageURI.getLastPathSegment());
+                        Log.i("path1", data.getDataString());
+                        imageName.setText("");
 
                         //should scale the size of image
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {

@@ -2,6 +2,7 @@ package com.and.netshare.home.homepage.images;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,12 +45,16 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         StorageReference ref = FirebaseStorage.getInstance().getReference().child("acg_images/" + imageArrayList.get(position).getPath());
         Glide.with(context)
-                .asBitmap()
+                .asDrawable()
                 .load(ref)
+                .placeholder(R.drawable.loading_icon)
+                .error(R.drawable.loading_error_icon)
                 .skipMemoryCache(true)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .diskCacheStrategy(DiskCacheStrategy.DATA)
+                .centerCrop()
                 .into(holder.picture);
     }
+
 
     @Override
     public void onViewRecycled(@NonNull ViewHolder holder){
@@ -59,6 +64,7 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ViewHolder
             Glide.with(context).clear(viewR);
         }
     }
+
 
     @Override
     public int getItemCount() {

@@ -4,7 +4,8 @@
     android:background="@drawable/login_edit_shape"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="650dp"
+    android:gravity="center"
     tools:context=".home.homepage.images.SingleImageFragment">
 
     <ImageView
