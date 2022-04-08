@@ -99,18 +99,24 @@ public class RegisterFragment extends Fragment {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
-                                            newUser.child(DataHandler.changeDotToComaEmail(emailString)).setValue(userNameString);
+                                            if (userNameString.equals("")){
+                                                newUser.child(DataHandler.changeDotToComaEmail(emailString)).setValue("NewUser");
+                                            } else {
+                                                newUser.child(DataHandler.changeDotToComaEmail(emailString)).setValue(userNameString);
+                                            }
                                             Toast.makeText(getContext(), R.string.register_info, Toast.LENGTH_SHORT).show();
                                             startActivity(new Intent(getActivity(), MainActivity.class));
+                                        } else {
+                                            Log.d("upload register exception", String.valueOf(task.getException()));
+                                            error_label.setText(R.string.register_email_occupied);
                                         }
                                     }
                                 });
-
                     } else {
                         error_label.setText(R.string.register_error);
                     }
                 }catch (Exception e){
-                    Log.d("register eoor ", e.getMessage());
+                    Log.d("register error ", e.getMessage());
                 }
             }
         });

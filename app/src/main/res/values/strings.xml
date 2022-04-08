@@ -30,6 +30,7 @@
     <string name="register_info">Register success !</string>
     <string name="register_password_hint">At least 6 characters</string>
     <string name="register_username_hint">Username (Optional)</string>
+    <string name="register_email_occupied">The email address is already in use by another account.</string>
     <!-- home -->
     <string name="home_title">Home</string>
 
