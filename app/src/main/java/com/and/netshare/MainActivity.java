@@ -12,6 +12,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -48,14 +50,16 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.main_drawer);
         bottomNavigationView = findViewById(R.id.bottom_navbar);
         toolbar = findViewById(R.id.topBar);
+
+        setSupportActionBar(toolbar);
     }
 
     private void setupNavigation() {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         setSupportActionBar(toolbar);
 
-        configuration = new AppBarConfiguration.Builder(R.id.homePageFragment)
-                .setOpenableLayout(drawerLayout).build();
+        configuration = new AppBarConfiguration.Builder(R.id.homePageFragment).build();
+        NavigationUI.setupActionBarWithNavController(this, navController, configuration);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
         setBottomNavigationView();
     }
@@ -85,6 +89,25 @@ public class MainActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
         FirebaseUser firebaseUser = mainAuth.getCurrentUser();
         checkUser(firebaseUser);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        return NavigationUI.navigateUp(navController, configuration) || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START))
+            drawerLayout.closeDrawer(GravityCompat.START);
+        else
+            super.onBackPressed();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.top_bar, menu);
+        return true;
     }
 
 }

@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homePageFragment_to_uploadFragment"
             app:destination="@id/uploadFragment" />
+        <action
+            android:id="@+id/action_homePageFragment_to_userFragment"
+            app:destination="@id/userFragment" />
     </fragment>
     <fragment
         android:id="@+id/userFragment"
@@ -28,11 +31,14 @@
         <action
             android:id="@+id/action_userFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_userFragment_to_homePageFragment"
+            app:destination="@id/homePageFragment" />
     </fragment>
     <fragment
         android:id="@+id/accountFragment"
         android:name="com.and.netshare.home.userlist.AccountFragment"
-        android:label="fragment_account"
+        android:label="@string/user_item1"
         tools:layout="@layout/fragment_account" >
         <action
             android:id="@+id/action_accountFragment_to_userFragment"
@@ -41,7 +47,7 @@
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.and.netshare.home.userlist.AboutFragment"
-        android:label="fragment_about"
+        android:label="@string/user_item2"
         tools:layout="@layout/fragment_about" >
         <action
             android:id="@+id/action_aboutFragment_to_userFragment"
@@ -50,7 +56,7 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.and.netshare.home.userlist.SettingsFragment"
-        android:label="SettingsFragment" >
+        android:label="@string/user_item3" >
         <action
             android:id="@+id/action_settingsFragment_to_userFragment"
             app:destination="@id/userFragment" />
@@ -58,7 +64,7 @@
     <fragment
         android:id="@+id/uploadFragment"
         android:name="com.and.netshare.home.homepage.UploadFragment"
-        android:label="fragment_upload"
+        android:label="Upload"
         tools:layout="@layout/fragment_upload" >
         <action
             android:id="@+id/action_uploadFragment_to_homePageFragment"

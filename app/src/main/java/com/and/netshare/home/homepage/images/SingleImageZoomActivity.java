@@ -1,8 +1,14 @@
 package com.and.netshare.home.homepage.images;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,6 +23,8 @@ import java.text.DateFormat;
 import java.util.Date;
 
 public class SingleImageZoomActivity extends AppCompatActivity {
+    private Toolbar topBar;
+    private DrawerLayout layout;
 
     private ImageView image;
     private TextView name;
@@ -86,9 +94,26 @@ public class SingleImageZoomActivity extends AppCompatActivity {
         name = findViewById(R.id.zoom_imageName);
         cat = findViewById(R.id.zoom_imageCategory);
         uploadTime = findViewById(R.id.zoom_uploadTime);
+        topBar = findViewById(R.id.topBar);
+        layout = findViewById(R.id.single_container);
+
+        setSupportActionBar(topBar);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.single_image_topbar, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        int itemId = item.getItemId();
+        if (itemId == R.id.action_save){
+            //save image
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     private String shortenString(String pathString) {
         int position = pathString.indexOf('_');
