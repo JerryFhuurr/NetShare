@@ -99,6 +99,7 @@
     <string name="zoom_image_name">Name :</string>
     <string name="zoom_image_cat">Category :</string>
     <string name="zoom_save_ok">Saved !</string>
+    <string name="zoom_share_ok">Link copied to the clipboard !</string>
 
     <!-- pop menu -->
     <string name="pop_save">Save image</string>

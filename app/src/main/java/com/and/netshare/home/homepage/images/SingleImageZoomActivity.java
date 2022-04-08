@@ -1,5 +1,7 @@
 package com.and.netshare.home.homepage.images;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -30,6 +32,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -158,6 +161,20 @@ public class SingleImageZoomActivity extends AppCompatActivity {
                     return true;
                 } else if (item.getItemId() == R.id.single_share) {
                     Toast.makeText(SingleImageZoomActivity.this, "Share", Toast.LENGTH_SHORT).show();
+                    r.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            ClipboardManager clipboardManager = (ClipboardManager) SingleImageZoomActivity.this.getSystemService(Context.CLIPBOARD_SERVICE);
+                            ClipData clipData = ClipData.newPlainText("share_link", uri.toString());
+                            clipboardManager.setPrimaryClip(clipData);
+                            Toast.makeText(SingleImageZoomActivity.this, R.string.zoom_share_ok, Toast.LENGTH_SHORT).show();
+
+                            Intent intent_share = new Intent(Intent.ACTION_SEND);
+                            intent_share.setType("text/plain");
+                            intent_share.putExtra(Intent.EXTRA_TEXT, uri.toString());
+                            startActivity(intent_share);
+                        }
+                    });
                     return true;
                 }
                 return false;
