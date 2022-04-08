@@ -13,7 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.and.netshare.R;
 import com.and.netshare.home.homepage.images.anime.AnimeFragment;
-import com.and.netshare.home.homepage.images.GamesFragment;
+import com.and.netshare.home.homepage.images.game.GamesFragment;
 import com.and.netshare.home.homepage.images.meme.MemeFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;

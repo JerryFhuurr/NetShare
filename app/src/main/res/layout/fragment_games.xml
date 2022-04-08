@@ -4,12 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".home.homepage.images.GamesFragment">
+    tools:context=".home.homepage.images.game.GamesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/game_recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="GAMES" />
-
+        android:layout_height="wrap_content" />
 </LinearLayout>

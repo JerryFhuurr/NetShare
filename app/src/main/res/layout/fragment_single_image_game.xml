@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/home_single_image_shape"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="230dp"
+    android:gravity="center"
+    tools:context=".home.homepage.images.anime.SingleImageFragment">
+
+    <ImageView
+        android:id="@+id/image_picture_game"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
