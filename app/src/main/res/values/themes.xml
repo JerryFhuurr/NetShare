@@ -48,4 +48,9 @@
     <style name="single_zoom_style">
         <item name="android:background">@color/WhiteSmoke</item>
     </style>
+
+    <style name="single_zoom_content_style">
+        <item name="android:background">@color/white</item>
+    </style>
+
 </resources>

@@ -5,7 +5,7 @@
     android:id="@+id/single_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/WhiteSmoke"
+    style="@style/single_zoom_style"
     tools:context=".home.homepage.images.SingleImageZoomActivity">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -35,7 +35,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                style="@style/single_zoom_content_style"
                 android:orientation="vertical"
                 android:padding="6dp">
 
@@ -54,7 +54,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                style="@style/single_zoom_content_style"
                 android:orientation="horizontal"
                 android:paddingHorizontal="6dp">
 
@@ -67,7 +67,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                style="@style/single_zoom_content_style"
                 android:orientation="horizontal"
                 android:paddingHorizontal="6dp">
 
@@ -82,7 +82,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                style="@style/single_zoom_content_style"
                 android:paddingHorizontal="6dp">
 
                 <TextView
