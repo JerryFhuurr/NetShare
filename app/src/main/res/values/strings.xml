@@ -29,7 +29,7 @@
     <string name="register_error">Invalid email address or Password does not match !</string>
     <string name="register_info">Register success !</string>
     <string name="register_password_hint">At least 6 characters</string>
-    <string name="register_username_hint">Username</string>
+    <string name="register_username_hint">Username (Optional)</string>
     <!-- home -->
     <string name="home_title">Home</string>
 
