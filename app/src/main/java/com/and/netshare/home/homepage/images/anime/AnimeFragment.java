@@ -27,7 +27,6 @@ public class AnimeFragment extends Fragment {
     private FirebaseStorage storage;
     private RecyclerView images;
     private ImagesAdapter adapter;
-    private GridLayoutManager layoutManager;
     ArrayList<SingleImage> imageList = new ArrayList<>();
 
     public AnimeFragment() {
@@ -66,7 +65,7 @@ public class AnimeFragment extends Fragment {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.e("home failure", e.getMessage());
+                        Log.e("home anime failure", e.getMessage());
                     }
                 });
 

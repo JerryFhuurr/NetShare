@@ -1,4 +1,4 @@
-package com.and.netshare.home.homepage.images.anime;
+package com.and.netshare.home.homepage.images.meme;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -17,51 +17,40 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
-public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ViewHolder> {
-    private ArrayList<SingleImage> imageArrayList;
+public class MemeAdapter extends RecyclerView.Adapter<MemeAdapter.ViewHolder> {
+    private ArrayList<SingleImageMeme> imageMemes;
     private Context context;
 
-    ImagesAdapter(Context c, ArrayList<SingleImage> imageArrayList) {
-        this.imageArrayList = imageArrayList;
+    MemeAdapter(Context c, ArrayList<SingleImageMeme> imageMemes){
         this.context = c;
+        this.imageMemes = imageMemes;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.fragment_single_image, parent, false);
+        View view = inflater.inflate(R.layout.fragment_single_image_meme, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        StorageReference ref = FirebaseStorage.getInstance().getReference().child("acg_images/" + imageArrayList.get(position).getPath());
+        StorageReference ref = FirebaseStorage.getInstance().getReference().child("memes/" + imageMemes.get(position).getPath());
         Glide.with(context)
                 .asDrawable()
                 .load(ref)
-                .placeholder(R.drawable.loading_icon)
-                .error(R.drawable.loading_error_icon)
+                .placeholder(R.drawable.loading_icon_small)
+                .error(R.drawable.loading_error_icon_small)
                 .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.DATA)
                 .centerCrop()
                 .into(holder.picture);
     }
 
-
-    @Override
-    public void onViewRecycled(@NonNull ViewHolder holder) {
-        super.onViewRecycled(holder);
-        ImageView viewR = holder.picture;
-        if (viewR != null) {
-            Glide.with(context).clear(viewR);
-        }
-    }
-
-
     @Override
     public int getItemCount() {
-        return imageArrayList.size();
+        return imageMemes.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -69,7 +58,7 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ViewHolder
 
         ViewHolder(View itemView) {
             super(itemView);
-            picture = itemView.findViewById(R.id.image_picture);
+            picture = itemView.findViewById(R.id.image_picture_meme);
         }
     }
 }

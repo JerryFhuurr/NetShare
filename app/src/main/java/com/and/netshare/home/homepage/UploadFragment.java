@@ -92,7 +92,7 @@ public class UploadFragment extends Fragment {
                 imageGet.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
                 byte[] data = outputStream.toByteArray();
 
-                if (imageCategory.equals("ACG image")) {
+                if (imageCategory.equals("Anime")) {
                     storageRef = storage.getReference().child("acg_images");
                 } else if (imageCategory.equals("Meme")) {
                     storageRef = storage.getReference().child("memes");
