@@ -101,7 +101,7 @@ public class UploadFragment extends Fragment {
                 }
                 String uploadName = "";
                 if (imageName.getText().equals("")) {
-                    uploadName = System.currentTimeMillis() + "+" + currentUser.getEmail() + "_" + imageURI.getLastPathSegment();
+                    uploadName = System.currentTimeMillis() + "+" + currentUser.getEmail() + "_ new " + imageCategory;
                 } else {
                     uploadName = System.currentTimeMillis() + "+" + currentUser.getEmail() + "_" + imageName.getText().toString();
                 }

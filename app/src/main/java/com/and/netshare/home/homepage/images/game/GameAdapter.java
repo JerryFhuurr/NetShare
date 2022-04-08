@@ -1,4 +1,4 @@
-package com.and.netshare.home.homepage.images.meme;
+package com.and.netshare.home.homepage.images.game;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -19,31 +19,32 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
-public class MemeAdapter extends RecyclerView.Adapter<MemeAdapter.ViewHolder> {
-    private ArrayList<SingleImage> imageMemes;
+public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
+
+    private ArrayList<SingleImage> imageArrayList;
     private Context context;
 
-    MemeAdapter(Context c, ArrayList<SingleImage> imageMemes) {
+    GameAdapter(Context c, ArrayList<SingleImage> list) {
         this.context = c;
-        this.imageMemes = imageMemes;
+        this.imageArrayList = list;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.fragment_single_image_meme, parent, false);
+        View view = inflater.inflate(R.layout.fragment_single_image_game, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        StorageReference ref = FirebaseStorage.getInstance().getReference().child("memes/" + imageMemes.get(position).getPath());
+        StorageReference ref = FirebaseStorage.getInstance().getReference().child("game_images/" + imageArrayList.get(position).getPath());
         Glide.with(context)
                 .asDrawable()
                 .load(ref)
-                .placeholder(R.drawable.loading_icon_small)
-                .error(R.drawable.loading_error_icon_small)
+                .placeholder(R.drawable.loading_icon_m)
+                .error(R.drawable.loading_error_icon_m)
                 .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.DATA)
                 .centerCrop()
@@ -59,10 +60,9 @@ public class MemeAdapter extends RecyclerView.Adapter<MemeAdapter.ViewHolder> {
         }
     }
 
-
     @Override
     public int getItemCount() {
-        return imageMemes.size();
+        return imageArrayList.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -70,7 +70,7 @@ public class MemeAdapter extends RecyclerView.Adapter<MemeAdapter.ViewHolder> {
 
         ViewHolder(View itemView) {
             super(itemView);
-            picture = itemView.findViewById(R.id.image_picture_meme);
+            picture = itemView.findViewById(R.id.image_picture_game);
         }
     }
 }

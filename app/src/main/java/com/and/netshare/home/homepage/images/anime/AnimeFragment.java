@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.and.netshare.R;
+import com.and.netshare.home.homepage.images.SingleImage;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -26,7 +26,7 @@ public class AnimeFragment extends Fragment {
 
     private FirebaseStorage storage;
     private RecyclerView images;
-    private ImagesAdapter adapter;
+    private AnimeAdapter adapter;
     ArrayList<SingleImage> imageList = new ArrayList<>();
 
     public AnimeFragment() {
@@ -58,7 +58,7 @@ public class AnimeFragment extends Fragment {
                         for (StorageReference item: listResult.getItems()){
                             imageList.add(new SingleImage(item.getName()));
                         }
-                        adapter = new ImagesAdapter(getContext(), imageList);
+                        adapter = new AnimeAdapter(getContext(), imageList);
                         images.setAdapter(adapter);
                     }
                 })

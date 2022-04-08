@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.and.netshare.R;
+import com.and.netshare.home.homepage.images.SingleImage;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.storage.FirebaseStorage;
@@ -17,11 +18,11 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
-public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ViewHolder> {
+public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.ViewHolder> {
     private ArrayList<SingleImage> imageArrayList;
     private Context context;
 
-    ImagesAdapter(Context c, ArrayList<SingleImage> imageArrayList) {
+    AnimeAdapter(Context c, ArrayList<SingleImage> imageArrayList) {
         this.imageArrayList = imageArrayList;
         this.context = c;
     }

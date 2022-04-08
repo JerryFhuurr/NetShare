@@ -4,8 +4,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -14,8 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.and.netshare.R;
-import com.and.netshare.home.homepage.images.anime.ImagesAdapter;
-import com.and.netshare.home.homepage.images.anime.SingleImage;
+import com.and.netshare.home.homepage.images.SingleImage;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -29,7 +26,7 @@ public class MemeFragment extends Fragment {
     private FirebaseStorage storage;
     private RecyclerView images;
     private MemeAdapter adapter;
-    ArrayList<SingleImageMeme> imageList = new ArrayList<>();
+    ArrayList<SingleImage> imageList = new ArrayList<>();
     public MemeFragment() {
         // Required empty public constructor
     }
@@ -56,7 +53,7 @@ public class MemeFragment extends Fragment {
                     @Override
                     public void onSuccess(ListResult listResult) {
                         for (StorageReference item: listResult.getItems()){
-                            imageList.add(new SingleImageMeme(item.getName()));
+                            imageList.add(new SingleImage(item.getName()));
                         }
                         adapter = new MemeAdapter(getContext(), imageList);
                         images.setAdapter(adapter);
