@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.and.netshare.R;
 import com.and.netshare.home.homepage.images.SingleImage;
+import com.and.netshare.home.homepage.images.SingleImageFragmentZoom;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -57,6 +58,15 @@ public class MemeFragment extends Fragment {
                         }
                         adapter = new MemeAdapter(getContext(), imageList);
                         images.setAdapter(adapter);
+                        adapter.setOnClickListener(singleImage -> {
+                            SingleImage.setPathStatic(singleImage.getPath());
+                            SingleImage.setCategory("Meme");
+                            getActivity().getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.nav_host_fragment, new SingleImageFragmentZoom(), null)
+                                    .addToBackStack(null)
+                                    .commit();
+                        });
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

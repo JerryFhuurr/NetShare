@@ -64,6 +64,8 @@ public class AnimeFragment extends Fragment {
                         adapter = new AnimeAdapter(getContext(), imageList);
                         images.setAdapter(adapter);
                         adapter.setOnClickListener(singleImage -> {
+                            SingleImage.setPathStatic(singleImage.getPath());
+                            SingleImage.setCategory("Anime");
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
                                     .replace(R.id.nav_host_fragment, new SingleImageFragmentZoom(), null)
