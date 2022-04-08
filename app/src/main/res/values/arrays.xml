@@ -1,0 +1,20 @@
+<resources>
+    <!-- Reply Preference -->
+    <string-array name="themes_titles">
+        <item>@string/settings_theme_title1</item>
+        <item>@string/settings_theme_title2</item>
+        <item>@string/settings_theme_title3</item>
+    </string-array>
+
+    <string-array name="themes_values">
+        <item>follow_system</item>
+        <item>light</item>
+        <item>dark</item>
+    </string-array>
+
+    <string-array name="image_category">
+        <item>Anime</item>
+        <item>Meme</item>
+        <item>Game image</item>
+    </string-array>
+</resources>

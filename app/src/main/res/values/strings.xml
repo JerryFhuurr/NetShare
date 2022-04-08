@@ -1,3 +1,97 @@
 <resources>
     <string name="app_name">NetShare</string>
+    <!-- main -->
+    <string name="main_login_info">Please login first</string>
+    <string name="main_info">Welcome! </string>
+    <!-- login -->
+    <string name="login_email">Email</string>
+    <string name="login_password">Password</string>
+    <string name="login_email_hint">Enter email here</string>
+    <string name="login_password_hint">Your password</string>
+    <string name="login_button_login">Login</string>
+    <string name="login_button_register">Register</string>
+    <string name="login_forget">Forget password?</string>
+    <string name="login_toast1">A username already exists</string>
+    <string name="login_fail_toast">Invalid email or password</string>
+    <!-- login reset -->
+    <string name="login_reset_title">Reset password</string>
+    <string name="login_reset_body">Enter email here to reset</string>
+    <string name="login_reset_ok">Email has been sent !</string>
+    <string name="login_reset_error">Cannot find this email !</string>
+    <!-- register -->
+    <string name="register_title">Register</string>
+    <string name="register_email">Your email</string>
+    <string name="register_email_hint">Enter your email here</string>
+    <string name="register_password">Password</string>
+    <string name="register_password_r">Repeat password</string>
+    <string name="register_ok">Register</string>
+    <string name="register_change_login">Already have account? Login here</string>
+    <string name="register_error">Invalid email address or Password does not match !</string>
+    <string name="register_info">Register success !</string>
+    <string name="register_password_hint">At least 6 characters</string>
+    <!-- home -->
+    <string name="home_title">Home</string>
+
+    <!-- User -->
+    <string name="user_title">User</string>
+    <string name="user_item1">Account</string>
+    <string name="user_item2">About</string>
+    <string name="user_item3">Settings</string>
+    <string name="user_item4">Logout</string>
+
+    <!-- account -->
+    <string name="account_update_username">Username :</string>
+    <string name="account_update_password_text">Password :</string>
+    <string name="account_update_password">Change password</string>
+    <string name="account_change">Change</string>
+    <string name="account_setUsername">Username updated !</string>
+    <string name="account_resetPassword">An email has been sent to your email, please check it and finish reset password.</string>
+
+    <!-- about -->
+    <string name="about_author">Author email :</string>
+    <string name="about_git">Github link :</string>
+    <string name="about_copyLink">Link copied to clipboard.</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Appearance</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="reply_title">Theme</string>
+
+    <!-- Second Preferences -->
+    <string name="homepage_settings_title">Home page appearance</string>
+    <string name="homepage_settings_attachment">Display name of images</string>
+    <string name="attachment_summary_on">The name and username will display below each image
+    </string>
+    <string name="attachment_summary_off">Only display the image</string>
+    <string name="type_row_title">Type of view</string>
+    <string name="type_row_sON">Single</string>
+    <string name="type_row_sOFF">Double</string>
+
+    <!-- themes titles -->
+    <string name="settings_theme_title1">Follow system</string>
+    <string name="settings_theme_title2">Light</string>
+    <string name="settings_theme_title3">Dark</string>
+
+    <!-- upload -->
+    <string name="upload_imageName">Name (Default is filename)</string>
+    <string name="upload_imageCat">Category</string>
+    <string name="upload_imageSize">Size</string>
+    <string name="upload_local_title">Choose local file</string>
+    <string name="upload_camera_title">Take images from camera</string>
+    <string name="upload_upload_title">Upload</string>
+    <string name="upload_permission">You have authorized</string>
+    <string name="upload_permission_ok">Get permission</string>
+    <string name="upload_permission_no">Cannot get permission</string>
+    <string name="upload_failed">Upload failed, please check your settings</string>
+    <string name="upload_success">Upload success</string>
+    <string name="upload_file_error">Image too large !</string>
+    <string name="upload_size_error">The file is too large, the preview image will be compressed</string>
+
+    <!-- home -->
+    <string name="tab_1">Anime</string>
+    <string name="tab_2">Meme</string>
+    <string name="tab_3">Game</string>
 </resources>

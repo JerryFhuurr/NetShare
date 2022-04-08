@@ -2,55 +2,40 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_drawer"
+    android:id="@+id/login_drawer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".login.LoginActivity">
 
-        <!-- top bar -->
+
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/topBar"
+                android:id="@+id/login_topbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary" />
-
         </com.google.android.material.appbar.AppBarLayout>
 
-        <!-- bottom -->
         <LinearLayout
-            android:id="@+id/main_container"
+            android:id="@+id/login_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingTop="?attr/actionBarSize">
+            android:orientation="vertical">
 
             <fragment
-                android:id="@+id/nav_host_fragment"
+                android:id="@+id/nav_login"
                 android:name="androidx.navigation.fragment.NavHostFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 app:defaultNavHost="true"
-                app:navGraph="@navigation/main_nav_map" />
-
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottom_navbar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="11"
-                android:background="?android:attr/windowBackground"
-                app:menu="@menu/bottom_menu" />
+                app:navGraph="@navigation/login_nav_map" />
         </LinearLayout>
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
 </androidx.drawerlayout.widget.DrawerLayout>

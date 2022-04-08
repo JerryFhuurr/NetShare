@@ -7,4 +7,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="red">#FF0000</color>
+    <color name="royalBlue">#4169E1</color>
+    <color name="lightSkyBlue">#87CEFA</color>
+    <color name="deepSkyBlue1">#00BFFF</color>
+    <color name="deepSkyBlue3">#009ACD</color>
+    <color name="WhiteSmoke">#F5F5F5</color>
+    <color name="Gainsboro">#DCDCDC</color>
+    <color name="Grey">#BEBEBE</color>
+    <color name="DimGrey">#696969</color>
+
 </resources>
