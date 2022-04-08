@@ -19,12 +19,12 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 
 public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.ViewHolder> {
-    private ArrayList<SingleImage> imageArrayList;
+    private ArrayList<SingleImage> imagesAnime;
     private Context context;
     private OnClickListener listener;
 
-    AnimeAdapter(Context c, ArrayList<SingleImage> imageArrayList) {
-        this.imageArrayList = imageArrayList;
+    AnimeAdapter(Context c, ArrayList<SingleImage> imagesAnime) {
+        this.imagesAnime = imagesAnime;
         this.context = c;
     }
 
@@ -43,7 +43,7 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        StorageReference ref = FirebaseStorage.getInstance().getReference().child("acg_images/" + imageArrayList.get(position).getPath());
+        StorageReference ref = FirebaseStorage.getInstance().getReference().child("acg_images/" + imagesAnime.get(position).getPath());
         Glide.with(context)
                 .asDrawable()
                 .load(ref)
@@ -68,7 +68,7 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return imageArrayList.size();
+        return imagesAnime.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -77,6 +77,9 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.ViewHolder> 
         ViewHolder(View itemView) {
             super(itemView);
             picture = itemView.findViewById(R.id.image_picture);
+            itemView.setOnClickListener(view -> {
+                listener.onClick(imagesAnime.get(getBindingAdapterPosition()));
+            });
         }
     }
 

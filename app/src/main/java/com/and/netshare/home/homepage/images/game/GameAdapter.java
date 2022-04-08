@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.and.netshare.R;
 import com.and.netshare.home.homepage.images.SingleImage;
-import com.and.netshare.home.homepage.images.anime.AnimeAdapter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.storage.FirebaseStorage;
@@ -21,13 +20,13 @@ import java.util.ArrayList;
 
 public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
 
-    private ArrayList<SingleImage> imageArrayList;
+    private ArrayList<SingleImage> imageGames;
     private Context context;
     private OnClickListener listener;
 
     GameAdapter(Context c, ArrayList<SingleImage> list) {
         this.context = c;
-        this.imageArrayList = list;
+        this.imageGames = list;
     }
 
     public void setOnClickListener(OnClickListener listener) {
@@ -45,7 +44,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        StorageReference ref = FirebaseStorage.getInstance().getReference().child("game_images/" + imageArrayList.get(position).getPath());
+        StorageReference ref = FirebaseStorage.getInstance().getReference().child("game_images/" + imageGames.get(position).getPath());
         Glide.with(context)
                 .asDrawable()
                 .load(ref)
@@ -68,7 +67,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return imageArrayList.size();
+        return imageGames.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -77,6 +76,9 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
         ViewHolder(View itemView) {
             super(itemView);
             picture = itemView.findViewById(R.id.image_picture_game);
+            itemView.setOnClickListener(view -> {
+                listener.onClick(imageGames.get(getBindingAdapterPosition()));
+            });
         }
     }
 

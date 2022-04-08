@@ -77,6 +77,9 @@ public class MemeAdapter extends RecyclerView.Adapter<MemeAdapter.ViewHolder> {
         ViewHolder(View itemView) {
             super(itemView);
             picture = itemView.findViewById(R.id.image_picture_meme);
+            itemView.setOnClickListener(view -> {
+                listener.onClick(imageMemes.get(getBindingAdapterPosition()));
+            });
         }
     }
 
