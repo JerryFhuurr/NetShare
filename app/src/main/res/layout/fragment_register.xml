@@ -27,7 +27,7 @@
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="356dp"
-            android:layout_height="221dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
             android:orientation="vertical"
             android:padding="5dp"
@@ -50,6 +50,23 @@
                 android:drawablePadding="10dp"
                 android:background="@drawable/login_edit_shape"
                 android:hint="@string/register_email_hint" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+            <EditText
+                android:id="@+id/register_username"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="1.5"
+                android:singleLine="true"
+                android:drawableLeft="@drawable/user_icon"
+                android:drawablePadding="10dp"
+                android:background="@drawable/login_edit_shape"
+                android:hint="@string/register_username_hint"
+                android:inputType="text"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <View
                 android:layout_width="match_parent"

@@ -53,7 +53,7 @@
                     android:gravity="center|left"
                     android:inputType="textPersonName"
                     android:singleLine="true"
-                    android:text="TextView"
+                    android:text="Loading..."
                     android:textSize="20dp" />
 
                 <Button
@@ -80,7 +80,7 @@
                     android:layout_weight="3"
                     android:gravity="center|left"
                     android:text="@string/account_update_password_text"
-                    android:textSize="20dp" />
+                    android:textSize="18dp" />
 
                 <Button
                     android:id="@+id/change_password"

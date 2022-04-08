@@ -18,11 +18,15 @@ import android.widget.Toast;
 
 import com.and.netshare.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class AccountFragment extends Fragment {
 
@@ -33,6 +37,8 @@ public class AccountFragment extends Fragment {
 
     private FirebaseAuth userAuth;
     private FirebaseUser currentUser;
+    private FirebaseDatabase db;
+    private DatabaseReference reference;
     public AccountFragment() {
         // Required empty public constructor
     }
@@ -42,6 +48,7 @@ public class AccountFragment extends Fragment {
         super.onCreate(savedInstanceState);
         userAuth = FirebaseAuth.getInstance();
         currentUser = userAuth.getCurrentUser();
+        db = FirebaseDatabase.getInstance("https://netshare-f4723-default-rtdb.asia-southeast1.firebasedatabase.app");
     }
 
     @Override
@@ -51,29 +58,18 @@ public class AccountFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_account, container, false);
         userName = v.findViewById(R.id.accountName);
         userEmail = v.findViewById(R.id.userEmail);
-        userName.setText(currentUser.getDisplayName());
         userEmail.setText(currentUser.getEmail());
         editUsername = v.findViewById(R.id.account_change_name);
         updatePassword = v.findViewById(R.id.change_password);
 
+        reference = db.getReference("UserEmail/" + DataHandler.changeDotToComaEmail(currentUser.getEmail()));
+        getUserName(reference);
+
         editUsername.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
-                        .setDisplayName(userName.getText().toString())
-                        .build();
-
-                currentUser.updateProfile(profileChangeRequest)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()){
-                                    Log.d(TAG, "User profile updated.");
-                                    Log.d("update username", userName.getText().toString());
-                                    Snackbar.make(v, R.string.account_setUsername, Snackbar.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+                reference.setValue(userName.getText().toString());
+                Snackbar.make(v, R.string.account_setUsername, Snackbar.LENGTH_LONG).show();
             }
         });
 
@@ -94,5 +90,21 @@ public class AccountFragment extends Fragment {
             }
         });
         return v;
+    }
+
+    private void getUserName(DatabaseReference ref){
+        ref.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    Log.d("firebase info", String.valueOf(task.getResult().getValue()));
+                   String userNameString = String.valueOf(task.getResult().getValue());
+                    userName.setText(userNameString);
+                }
+            }
+        });
     }
 }
