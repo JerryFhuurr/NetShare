@@ -98,4 +98,9 @@
     <!-- image zoom -->
     <string name="zoom_image_name">Name :</string>
     <string name="zoom_image_cat">Category :</string>
+    <string name="zoom_save_ok">Saved !</string>
+
+    <!-- pop menu -->
+    <string name="pop_save">Save image</string>
+    <string name="pop_share">Share</string>
 </resources>
