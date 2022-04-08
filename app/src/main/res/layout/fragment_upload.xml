@@ -23,6 +23,7 @@
                 android:id="@+id/image_name"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
+                android:singleLine="true"
                 android:hint="@string/upload_imageName"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

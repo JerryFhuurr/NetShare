@@ -1,7 +1,6 @@
 package com.and.netshare.home.homepage;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +12,9 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.and.netshare.R;
-import com.and.netshare.home.homepage.images.AnimeFragment;
+import com.and.netshare.home.homepage.images.anime.AnimeFragment;
 import com.and.netshare.home.homepage.images.GamesFragment;
-import com.and.netshare.home.homepage.images.MemeFragment;
-import com.and.netshare.home.homepage.images.PageTitle;
+import com.and.netshare.home.homepage.images.meme.MemeFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.storage.FirebaseStorage;
@@ -77,7 +75,6 @@ public class HomePageFragment extends Fragment {
 
     class MPagerAdapter extends FragmentPagerAdapter {
         String[] temp = {getString(R.string.tab_1), getString(R.string.tab_2), getString(R.string.tab_3)};
-        PageTitle title = new PageTitle();
 
         public MPagerAdapter(FragmentManager fm) {
             super(fm);

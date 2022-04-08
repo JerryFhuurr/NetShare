@@ -1,4 +1,4 @@
-package com.and.netshare.home.homepage.images;
+package com.and.netshare.home.homepage.images.anime;
 
 import android.content.Context;
 
