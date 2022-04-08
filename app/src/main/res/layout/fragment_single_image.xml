@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="650dp"
     android:gravity="center"
-    tools:context=".home.homepage.images.anime.SingleImageFragment">
+    tools:context=".home.homepage.images.anime.SingleImageFragmentAnime">
 
     <ImageView
         android:id="@+id/image_picture"

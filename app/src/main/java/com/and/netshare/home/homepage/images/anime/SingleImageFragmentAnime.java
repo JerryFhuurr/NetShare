@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 
 import com.and.netshare.R;
 
-public class SingleImageFragment extends Fragment {
+public class SingleImageFragmentAnime extends Fragment {
 
-    public SingleImageFragment() {
+    public SingleImageFragmentAnime() {
         // Required empty public constructor
     }
 
