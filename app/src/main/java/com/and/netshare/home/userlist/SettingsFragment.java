@@ -45,12 +45,15 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
             switch (newValue.toString()) {
                 case "follow_system":
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                    getActivity().recreate();
                     break;
                 case "light":
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    getActivity().recreate();
                     break;
                 case "dark":
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    getActivity().recreate();
                     break;
             }
             return true;
