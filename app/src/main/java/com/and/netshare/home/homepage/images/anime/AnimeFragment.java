@@ -1,10 +1,10 @@
 package com.and.netshare.home.homepage.images.anime;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,11 +12,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.and.netshare.R;
 import com.and.netshare.home.homepage.images.SingleImage;
-import com.and.netshare.home.homepage.images.SingleImageFragmentZoom;
+import com.and.netshare.home.homepage.images.SingleImageZoomActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -66,11 +65,8 @@ public class AnimeFragment extends Fragment {
                         adapter.setOnClickListener(singleImage -> {
                             SingleImage.setPathStatic(singleImage.getPath());
                             SingleImage.setCategory("Anime");
-                            getActivity().getSupportFragmentManager()
-                                    .beginTransaction()
-                                    .replace(R.id.nav_host_fragment, new SingleImageFragmentZoom(), null)
-                                    .addToBackStack(null)
-                                    .commit();
+                            Intent intent = new Intent(getActivity(), SingleImageZoomActivity.class);
+                            startActivity(intent);
                         });
                     }
                 })

@@ -1,5 +1,6 @@
 package com.and.netshare.home.homepage.images.game;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,8 +15,7 @@ import android.view.ViewGroup;
 
 import com.and.netshare.R;
 import com.and.netshare.home.homepage.images.SingleImage;
-import com.and.netshare.home.homepage.images.SingleImageFragmentZoom;
-import com.and.netshare.home.homepage.images.anime.AnimeAdapter;
+import com.and.netshare.home.homepage.images.SingleImageZoomActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -65,11 +65,8 @@ public class GamesFragment extends Fragment {
                         adapter.setOnClickListener(singleImage -> {
                             SingleImage.setPathStatic(singleImage.getPath());
                             SingleImage.setCategory("Game");
-                            getActivity().getSupportFragmentManager()
-                                    .beginTransaction()
-                                    .replace(R.id.nav_host_fragment, new SingleImageFragmentZoom(), null)
-                                    .addToBackStack(null)
-                                    .commit();
+                            Intent intent = new Intent(getActivity(), SingleImageZoomActivity.class);
+                            startActivity(intent);
                         });
                     }
                 })

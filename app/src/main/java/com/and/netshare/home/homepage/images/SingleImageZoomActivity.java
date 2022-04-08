@@ -1,16 +1,11 @@
 package com.and.netshare.home.homepage.images;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.and.netshare.R;
 import com.bumptech.glide.Glide;
@@ -21,7 +16,7 @@ import com.google.firebase.storage.StorageReference;
 import java.text.DateFormat;
 import java.util.Date;
 
-public class SingleImageFragmentZoom extends Fragment {
+public class SingleImageZoomActivity extends AppCompatActivity {
 
     private ImageView image;
     private TextView name;
@@ -32,26 +27,13 @@ public class SingleImageFragmentZoom extends Fragment {
     private StorageReference imageRef;
     private String nameString;
 
-    public SingleImageFragmentZoom() {
-        // Required empty public constructor
-    }
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        reference = FirebaseStorage.getInstance().getReference();
-        nameString = SingleImage.getStaticPath();
-    }
+        setContentView(R.layout.activity_single_image_zoom);
+        setBasicData();
+        initView();
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_single_image_zoom, container, false);
-        image = v.findViewById(R.id.image_zoom);
-        name = v.findViewById(R.id.zoom_imageName);
-        cat = v.findViewById(R.id.zoom_imageCategory);
-        uploadTime = v.findViewById(R.id.zoom_uploadTime);
 
         name.setText(shortenString(nameString));
         uploadTime.setText("Upload : " + getTimeFromPath(nameString));
@@ -59,7 +41,7 @@ public class SingleImageFragmentZoom extends Fragment {
         if (SingleImage.getCategory().equals("Anime")) {
             cat.setText("Category : " + getString(R.string.tab_1));
             imageRef = reference.child("acg_images/" + SingleImage.getStaticPath());
-            Glide.with(getContext())
+            Glide.with(this)
                     .asDrawable()
                     .load(imageRef)
                     .skipMemoryCache(true)
@@ -68,7 +50,7 @@ public class SingleImageFragmentZoom extends Fragment {
         } else if (SingleImage.getCategory().equals("Game")) {
             cat.setText("Category : " + getString(R.string.tab_3));
             imageRef = reference.child("game_images/" + SingleImage.getStaticPath());
-            Glide.with(getContext())
+            Glide.with(this)
                     .asDrawable()
                     .load(imageRef)
                     .skipMemoryCache(true)
@@ -77,15 +59,36 @@ public class SingleImageFragmentZoom extends Fragment {
         } else if (SingleImage.getCategory().equals("Meme")) {
             cat.setText("Category : " + getString(R.string.tab_2));
             imageRef = reference.child("memes/" + SingleImage.getStaticPath());
-            Glide.with(getContext())
+            Glide.with(this)
                     .asDrawable()
                     .load(imageRef)
                     .skipMemoryCache(true)
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                     .into(image);
         }
-        return v;
+
+        image.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+
+                return false;
+            }
+        });
     }
+
+    private void setBasicData(){
+        reference = FirebaseStorage.getInstance().getReference();
+        nameString = SingleImage.getStaticPath();
+    }
+
+    private void initView(){
+        image = findViewById(R.id.image_zoom);
+        name = findViewById(R.id.zoom_imageName);
+        cat = findViewById(R.id.zoom_imageCategory);
+        uploadTime = findViewById(R.id.zoom_uploadTime);
+    }
+
+
 
     private String shortenString(String pathString) {
         int position = pathString.indexOf('_');
@@ -101,5 +104,4 @@ public class SingleImageFragmentZoom extends Fragment {
         DateFormat fDateFormat = DateFormat.getDateTimeInstance();
         return fDateFormat.format(date);
     }
-
 }
