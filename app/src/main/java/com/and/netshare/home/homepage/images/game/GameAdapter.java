@@ -23,11 +23,17 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
 
     private ArrayList<SingleImage> imageArrayList;
     private Context context;
+    private OnClickListener listener;
 
     GameAdapter(Context c, ArrayList<SingleImage> list) {
         this.context = c;
         this.imageArrayList = list;
     }
+
+    public void setOnClickListener(OnClickListener listener) {
+        this.listener = listener;
+    }
+
 
     @NonNull
     @Override

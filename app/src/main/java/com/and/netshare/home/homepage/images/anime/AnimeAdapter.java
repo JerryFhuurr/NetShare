@@ -21,11 +21,17 @@ import java.util.ArrayList;
 public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.ViewHolder> {
     private ArrayList<SingleImage> imageArrayList;
     private Context context;
+    private OnClickListener listener;
 
     AnimeAdapter(Context c, ArrayList<SingleImage> imageArrayList) {
         this.imageArrayList = imageArrayList;
         this.context = c;
     }
+
+    public void setOnClickListener(OnClickListener listener) {
+        this.listener = listener;
+    }
+
 
     @NonNull
     @Override

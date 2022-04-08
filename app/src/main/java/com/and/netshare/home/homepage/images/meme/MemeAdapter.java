@@ -22,11 +22,17 @@ import java.util.ArrayList;
 public class MemeAdapter extends RecyclerView.Adapter<MemeAdapter.ViewHolder> {
     private ArrayList<SingleImage> imageMemes;
     private Context context;
+    private OnClickListener listener;
 
     MemeAdapter(Context c, ArrayList<SingleImage> imageMemes) {
         this.context = c;
         this.imageMemes = imageMemes;
     }
+
+    public void setOnClickListener(OnClickListener listener) {
+        this.listener = listener;
+    }
+
 
     @NonNull
     @Override
