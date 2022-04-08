@@ -73,4 +73,8 @@ public class MemeAdapter extends RecyclerView.Adapter<MemeAdapter.ViewHolder> {
             picture = itemView.findViewById(R.id.image_picture_meme);
         }
     }
+
+    public interface OnClickListener {
+        void onClick(SingleImage singleImage);
+    }
 }

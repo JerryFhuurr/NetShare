@@ -73,4 +73,8 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.ViewHolder> 
             picture = itemView.findViewById(R.id.image_picture);
         }
     }
+
+    public interface OnClickListener {
+        void onClick(SingleImage singleImage);
+    }
 }

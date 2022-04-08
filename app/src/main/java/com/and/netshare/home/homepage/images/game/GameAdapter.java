@@ -73,4 +73,8 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
             picture = itemView.findViewById(R.id.image_picture_game);
         }
     }
+
+    public interface OnClickListener {
+        void onClick(SingleImage singleImage);
+    }
 }
