@@ -111,7 +111,6 @@ public class LoginFragment extends Fragment {
                         String emailE = emailEncode(email);
                         Log.v("email replace", emailE);
 
-                        //TODO 添加查找邮箱地址是否存在
                         mAuth.sendPasswordResetEmail(email)
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
