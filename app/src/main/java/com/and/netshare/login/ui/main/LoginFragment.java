@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.and.netshare.ActivityManager;
 import com.and.netshare.MainActivity;
 import com.and.netshare.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -161,6 +162,7 @@ public class LoginFragment extends Fragment {
     private void updateUI(FirebaseUser user) {
         mAuth.updateCurrentUser(user);
         startActivity(new Intent(getActivity(), MainActivity.class));
+        getActivity().finish();
     }
 
     private String emailEncode(String email){

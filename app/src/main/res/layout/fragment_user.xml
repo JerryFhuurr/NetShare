@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="56dp"
-                android:text="TextView"
+                android:text="Loading..."
                 android:textSize="20dp"
                 app:layout_constraintStart_toEndOf="@+id/imageView3"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -104,6 +104,18 @@
                     android:text="@string/user_item4"
                     android:onClick="logoutUser"
                     android:drawableLeft="@drawable/logout_icon"
+                    android:drawableRight="@drawable/next_icon" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp" />
+
+                <Button
+                    android:id="@+id/user_exitApp"
+                    style="@style/user_button_style"
+                    android:text="@string/user_item5"
+                    android:onClick="exitApp"
+                    android:drawableLeft="@drawable/exit_icon"
                     android:drawableRight="@drawable/next_icon" />
             </LinearLayout>
         </ScrollView>

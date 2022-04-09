@@ -43,6 +43,7 @@
     <string name="user_item2">About</string>
     <string name="user_item3">Settings</string>
     <string name="user_item4">Logout</string>
+    <string name="user_item5">Exit</string>
 
     <!-- account -->
     <string name="account_update_username">Username :</string>

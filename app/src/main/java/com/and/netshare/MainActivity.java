@@ -81,11 +81,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkUser(FirebaseUser currentUser) {
         if (currentUser != null) {
-            Toast.makeText(this, getString(R.string.main_info) + currentUser.getEmail(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.main_info) + " " +  currentUser.getEmail(), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, R.string.main_login_info, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
+            this.finish();
         }
     }
 
@@ -95,21 +96,16 @@ public class MainActivity extends AppCompatActivity {
         checkUser(firebaseUser);
     }
 
+    public void exitApp(View v){
+        finish();
+        ActivityManager.getInstance().exit();
+    }
+
     @Override
     public boolean onSupportNavigateUp() {
         return NavigationUI.navigateUp(navController, configuration) || super.onSupportNavigateUp();
     }
 
-    /*
-    @Override
-    public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START))
-            drawerLayout.closeDrawer(GravityCompat.START);
-        else
-            super.onBackPressed();
-    }
-
-     */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
