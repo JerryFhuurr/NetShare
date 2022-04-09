@@ -36,6 +36,11 @@
 
     <!-- both home and login -->
     <string name="exit_toast">Press again to exit the program</string>
+
+    <!-- filter -->
+    <string name="filter_text">Filter</string>
+    <string name="filter_1">Old to new</string>
+    <string name="filter_2">New to old</string>
     
     <!-- User -->
     <string name="user_title">User</string>

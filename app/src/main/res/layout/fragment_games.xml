@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/WhiteSmoke"
     android:orientation="vertical"
     tools:context=".home.homepage.images.game.GamesFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/WhiteSmoke"
+        android:gravity="right"
+        android:orientation="horizontal"
+        android:paddingVertical="4dp"
+        android:paddingRight="3dp">
+
+        <Button
+            android:id="@+id/game_sortSelector"
+            style="@style/filter_button_style"
+            android:background="@drawable/filter_button_shape"
+            android:drawableLeft="@drawable/filter_icon"
+            android:text="@string/filter_text"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/game_refresh"
@@ -14,6 +35,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/game_recycler"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

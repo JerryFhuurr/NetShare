@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/home_single_image_shape"
     android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="650dp"
+    android:layout_width="205dp"
+    android:layout_height="350dp"
     android:gravity="center"
     tools:context=".home.homepage.images.anime.SingleImageFragmentAnime">
 

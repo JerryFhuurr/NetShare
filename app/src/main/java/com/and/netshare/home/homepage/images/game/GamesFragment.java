@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,14 +13,17 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.and.netshare.DataHandler;
 import com.and.netshare.R;
 import com.and.netshare.home.homepage.images.SingleImage;
 import com.and.netshare.home.homepage.images.SingleImageZoomActivity;
 import com.and.netshare.home.homepage.images.anime.AnimeAdapter;
+import com.and.netshare.home.homepage.images.anime.AnimeFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -32,9 +36,12 @@ public class GamesFragment extends Fragment {
 
     private FirebaseStorage storage;
     private RecyclerView images;
+    private Button filter;
     private SwipeRefreshLayout refresh;
     private GameAdapter adapter;
+    private boolean shouldReverse;
     ArrayList<SingleImage> imageList = new ArrayList<>();
+    ArrayList<SingleImage> imageListReverse = new ArrayList<>();
 
     public GamesFragment() {
         // Required empty public constructor
@@ -74,14 +81,14 @@ public class GamesFragment extends Fragment {
                         super.run();
                         //同步加载网络数据
                         //加载数据 完毕后 关闭刷新状态 切回主线程
-                        loadData(listRef);
+                        loadList(shouldReverse);
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 // 加载完数据设置为不刷新状态，将下拉进度收起来
                                 refresh.setRefreshing(false);
                             }
-                        }, 100);
+                        }, 500);
                     }
                 }.start();
             }
@@ -89,8 +96,15 @@ public class GamesFragment extends Fragment {
 
         images = v.findViewById(R.id.game_recycler);
         images.hasFixedSize();
-        images.setLayoutManager(new LinearLayoutManager(getContext()));
         loadData(listRef);
+
+        filter = v.findViewById(R.id.game_sortSelector);
+        filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popMenu(view);
+            }
+        });
         return v;
     }
 
@@ -103,14 +117,8 @@ public class GamesFragment extends Fragment {
                         for (StorageReference item: listResult.getItems()){
                             imageList.add(new SingleImage(item.getName()));
                         }
-                        adapter = new GameAdapter(getContext(), imageList);
-                        images.setAdapter(adapter);
-                        adapter.setOnClickListener(singleImage -> {
-                            SingleImage.setPathStatic(singleImage.getPath());
-                            SingleImage.setCategory("Game");
-                            Intent intent = new Intent(getActivity(), SingleImageZoomActivity.class);
-                            startActivity(intent);
-                        });
+                        imageListReverse = DataHandler.reserveImageList(imageList);
+                        loadList(false);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -119,5 +127,46 @@ public class GamesFragment extends Fragment {
                         Log.e("home anime failure", e.getMessage());
                     }
                 });
+    }
+
+    private void loadList(boolean needReverse) {
+        if (!needReverse) {
+            adapter = new GameAdapter(getContext(), imageList);
+            images.setAdapter(adapter);
+            adapter.setOnClickListener(singleImage -> {
+                SingleImage.setPathStatic(singleImage.getPath());
+                SingleImage.setCategory("Game");
+                Intent intent = new Intent(getActivity(), SingleImageZoomActivity.class);
+                startActivity(intent);
+            });
+        } else {
+            adapter = new GameAdapter(getContext(), imageListReverse);
+            images.setAdapter(adapter);
+            adapter.setOnClickListener(singleImage -> {
+                SingleImage.setPathStatic(singleImage.getPath());
+                SingleImage.setCategory("Game");
+                Intent intent = new Intent(getActivity(), SingleImageZoomActivity.class);
+                startActivity(intent);
+            });
+        }
+    }
+
+    private void popMenu(View v) {
+        PopupMenu menu = new PopupMenu(GamesFragment.this.getContext(), v);
+        menu.getMenuInflater().inflate(R.menu.filter_menu, menu.getMenu());
+        menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.time_OtoN) {
+                    shouldReverse = false;
+                    loadList(false);
+                } else if (item.getItemId() == R.id.time_NtoO) {
+                    shouldReverse = true;
+                    loadList(true);
+                }
+                return false;
+            }
+        });
+        menu.show();
     }
 }

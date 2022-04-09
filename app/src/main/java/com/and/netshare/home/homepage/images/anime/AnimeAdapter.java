@@ -32,7 +32,6 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.ViewHolder> 
         this.listener = listener;
     }
 
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -48,13 +47,12 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.ViewHolder> 
                 .asDrawable()
                 .load(ref)
                 .placeholder(R.drawable.loading_icon)
-                .error(R.drawable.loading_error_icon)
+                .error(R.drawable.loading_failed_icon)
                 .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.DATA)
                 .centerCrop()
                 .into(holder.picture);
     }
-
 
     @Override
     public void onViewRecycled(@NonNull ViewHolder holder) {
@@ -64,7 +62,6 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.ViewHolder> 
             Glide.with(context).clear(viewR);
         }
     }
-
 
     @Override
     public int getItemCount() {

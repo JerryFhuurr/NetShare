@@ -52,4 +52,10 @@
     <style name="single_zoom_content_style">
         <item name="android:background">@color/grey21</item>
     </style>
+
+    <style name="filter_button_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+    </style>
 </resources>
