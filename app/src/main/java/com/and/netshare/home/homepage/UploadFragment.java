@@ -1,5 +1,6 @@
 package com.and.netshare.home.homepage;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.ImageDecoder;
@@ -20,11 +21,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.documentfile.provider.DocumentFile;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.and.netshare.DataHandler;
 import com.and.netshare.R;
+import com.and.netshare.UriUtils;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
@@ -35,6 +41,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 public class UploadFragment extends Fragment {
@@ -51,6 +60,8 @@ public class UploadFragment extends Fragment {
     private StorageReference storageRef;
     private Bitmap imageGet;
     private TextView sizeError;
+    private String suffix;
+    private String filePath;
     private FirebaseUser currentUser;
     //private final String filePath = Environment.getExternalStorageDirectory() + File.separator + "output_image.jpg";
 
@@ -61,6 +72,8 @@ public class UploadFragment extends Fragment {
         storage = FirebaseStorage.getInstance();
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         imageCategory = "";
+        suffix = "";
+        filePath = "";
         chooseImageDefault();
     }
 
@@ -89,41 +102,54 @@ public class UploadFragment extends Fragment {
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                imageGet.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+                if (suffix.equals("gif")){
+
+                }else {
+                    imageGet.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+                }
                 byte[] data = outputStream.toByteArray();
 
-                if (imageCategory.equals("Anime")) {
-                    storageRef = storage.getReference().child("acg_images");
-                } else if (imageCategory.equals("Meme")) {
-                    storageRef = storage.getReference().child("memes");
-                } else if (imageCategory.equals("Game image")) {
-                    storageRef = storage.getReference().child("game_images");
-                }
-                String uploadName = "";
-                if (imageName.getText().equals("")) {
-                    uploadName = System.currentTimeMillis() + "+" + currentUser.getEmail() + "_ new " + imageCategory;
-                } else {
-                    uploadName = System.currentTimeMillis() + "+" + currentUser.getEmail() + "_" + imageName.getText().toString();
-                }
-                StorageReference localRef = storageRef.child(uploadName);
-                UploadTask uploadTask = localRef.putBytes(data);
-                uploadTask.addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle unsuccessful uploads
-                        Log.v("failed", "upload failed");
-                        Snackbar.make(getView(), R.string.upload_failed, Snackbar.LENGTH_SHORT).show();
+
+                 */
+                try {
+                    InputStream stream = new FileInputStream(new File(filePath));
+
+                    if (imageCategory.equals("Anime")) {
+                        storageRef = storage.getReference().child("acg_images");
+                    } else if (imageCategory.equals("Meme")) {
+                        storageRef = storage.getReference().child("memes");
+                    } else if (imageCategory.equals("Game image")) {
+                        storageRef = storage.getReference().child("game_images");
                     }
-                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Log.v("success", "upload success");
-                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                        Toast.makeText(getContext(), R.string.upload_success, Toast.LENGTH_SHORT).show();
-                        UploadFragment.this.getActivity().onBackPressed();
+                    String uploadName = "";
+                    if (imageName.getText().equals("")) {
+                        uploadName = System.currentTimeMillis() + "+" + currentUser.getEmail() + "_ new " + imageCategory;
+                    } else {
+                        uploadName = System.currentTimeMillis() + "+" + currentUser.getEmail() + "_" + imageName.getText().toString();
                     }
-                });
+                    StorageReference localRef = storageRef.child(uploadName);
+                    UploadTask uploadTask = localRef.putStream(stream);
+                    uploadTask.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle unsuccessful uploads
+                            Log.v("failed", "upload failed");
+                            Snackbar.make(getView(), R.string.upload_failed, Snackbar.LENGTH_SHORT).show();
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Log.v("success", "upload success");
+                            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                            Toast.makeText(getContext(), R.string.upload_success, Toast.LENGTH_SHORT).show();
+                            UploadFragment.this.getActivity().onBackPressed();
+                        }
+                    });
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -152,25 +178,31 @@ public class UploadFragment extends Fragment {
                 if (data != null) {
                     try {
                         imageURI = data.getData();
-                        Log.i("path1", data.getDataString());
+                        Log.d("uri path", UriUtils.getFileAbsolutePath(getContext(), imageURI));
                         imageName.setText("");
 
-                        //should scale the size of image
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                            imageGet = ImageDecoder.decodeBitmap(ImageDecoder.createSource(getActivity().getContentResolver(), imageURI));
-                        } else
-                            imageGet = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageURI);
-                        Log.i("size", String.valueOf(imageGet.getByteCount()));
-                        //if image is larger than 2.8MB, use scaled bitmap
-                        if (imageGet.getByteCount() >= 16000000) {
-                            final Bitmap scaledBitmap = Bitmap.createScaledBitmap(imageGet,
-                                    (int) (imageGet.getWidth() * 0.5)
-                                    , (int) (imageGet.getHeight() * 0.5)
-                                    , true);
-                            sizeError.setText(R.string.upload_size_error);
-                            preview.setImageBitmap(scaledBitmap);
+                        filePath = UriUtils.getFileAbsolutePath(getContext(), imageURI);
+                        suffix = DataHandler.getSuffix(filePath);
+
+                        if (suffix.equals("gif")) {
+                            Glide.with(getView()).asDrawable().load(imageURI).into(preview);
                         } else {
-                            preview.setImageBitmap(imageGet);
+                            //should scale the size of image
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                                imageGet = ImageDecoder.decodeBitmap(ImageDecoder.createSource(getActivity().getContentResolver(), imageURI));
+                            } else
+                                imageGet = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageURI);
+                            //if image is larger than 2.8MB, use scaled bitmap
+                            if (imageGet.getByteCount() >= 16000000) {
+                                final Bitmap scaledBitmap = Bitmap.createScaledBitmap(imageGet,
+                                        (int) (imageGet.getWidth() * 0.5)
+                                        , (int) (imageGet.getHeight() * 0.5)
+                                        , true);
+                                sizeError.setText(R.string.upload_size_error);
+                                preview.setImageBitmap(scaledBitmap);
+                            } else {
+                                preview.setImageBitmap(imageGet);
+                            }
                         }
                     } catch (Exception e) {
                         Log.e("file error", e.getMessage());
@@ -190,4 +222,6 @@ public class UploadFragment extends Fragment {
         local.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
         startActivityForResult(local, 2);
     }
+
+
 }
