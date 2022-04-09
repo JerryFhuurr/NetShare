@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.and.netshare.R;
@@ -120,7 +121,7 @@ public class UploadFragment extends Fragment {
                         Log.v("success", "upload success");
                         // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
                         Toast.makeText(getContext(), R.string.upload_success, Toast.LENGTH_SHORT).show();
-                        NavHostFragment.findNavController(UploadFragment.this).navigate(R.id.action_uploadFragment_to_homePageFragment);
+                        UploadFragment.this.getActivity().onBackPressed();
                     }
                 });
             }
