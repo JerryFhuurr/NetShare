@@ -113,6 +113,7 @@ public class AnimeFragment extends Fragment {
                     public void onSuccess(ListResult listResult) {
                         for (StorageReference item : listResult.getItems()) {
                             imageList.add(new SingleImage(item.getName()));
+                            Log.d("item name", item.getName());
                         }
                         imageListReverse = DataHandler.reserveImageList(imageList);
                         loadList(false);

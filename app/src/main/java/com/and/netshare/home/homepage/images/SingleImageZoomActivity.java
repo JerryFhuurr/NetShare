@@ -45,7 +45,6 @@ import java.util.Date;
 
 public class SingleImageZoomActivity extends AppCompatActivity {
     private Toolbar topBar;
-    private AppBarConfiguration configuration;
     private Bitmap imageSave;
 
     private ImageView image;

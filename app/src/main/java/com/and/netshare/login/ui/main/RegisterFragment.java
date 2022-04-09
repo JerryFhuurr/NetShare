@@ -1,6 +1,7 @@
 package com.and.netshare.login.ui.main;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,12 +22,24 @@ import com.and.netshare.MainActivity;
 import com.and.netshare.R;
 import com.and.netshare.DataHandler;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class RegisterFragment extends Fragment {
 
@@ -40,6 +53,7 @@ public class RegisterFragment extends Fragment {
     private FirebaseAuth registerAuth;
     private FirebaseDatabase db;
     private DatabaseReference newUser;
+    private DatabaseReference newIcon;
     private TextView error_label;
     public static final String REGEX_EMAIL = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";   //verify email
 
@@ -66,6 +80,7 @@ public class RegisterFragment extends Fragment {
         ok = v.findViewById(R.id.register_ok);
         registerAuth = FirebaseAuth.getInstance();
         newUser = db.getReference("UserEmail/");
+        newIcon = db.getReference("UserIcon/");
         error_label = v.findViewById(R.id.error_label);
         return v;
     }
@@ -100,6 +115,8 @@ public class RegisterFragment extends Fragment {
                                             } else {
                                                 newUser.child(DataHandler.changeDotToComaEmail(emailString)).setValue(userNameString);
                                             }
+                                            newIcon.child(DataHandler.changeDotToComaEmail(emailString)).setValue("default_icon.png");
+
                                             Toast.makeText(getContext(), R.string.register_info, Toast.LENGTH_SHORT).show();
                                             startActivity(new Intent(getActivity(), MainActivity.class));
                                         } else {

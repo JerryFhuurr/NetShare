@@ -11,10 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.and.netshare.DataHandler;
 import com.and.netshare.R;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,6 +24,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class UserFragment extends Fragment {
 
@@ -31,12 +35,15 @@ public class UserFragment extends Fragment {
     private FirebaseUser currentUser;
     private FirebaseDatabase db;
     private DatabaseReference reference;
+    private DatabaseReference iconRef;
+    private StorageReference storageReference;
 
     private String userName;
 
     private Button account;
     private Button about;
     private Button settings;
+    private ImageView iconView;
 
     public UserFragment() {
         // Required empty public constructor
@@ -47,6 +54,7 @@ public class UserFragment extends Fragment {
         super.onCreate(savedInstanceState);
         userAuth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance("https://netshare-f4723-default-rtdb.asia-southeast1.firebasedatabase.app");
+
         currentUser = userAuth.getCurrentUser();
         userName = "";
     }
@@ -58,6 +66,7 @@ public class UserFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_user, container, false);
 
         userEmail = v.findViewById(R.id.user_email);
+        iconView = v.findViewById(R.id.user_userIcon);
 
         account = v.findViewById(R.id.user_account);
         about = v.findViewById(R.id.user_about);
@@ -68,7 +77,9 @@ public class UserFragment extends Fragment {
         userEmail.setText(currentUser.getEmail());
         String email = DataHandler.changeDotToComaEmail(currentUser.getEmail());
         reference = db.getReference("UserEmail/" + email);
+        iconRef = db.getReference("UserIcon/" + email);
         getUserName(reference);
+        getUserIcon(iconRef);
 
 
         account.setOnClickListener(new View.OnClickListener() {
@@ -104,9 +115,30 @@ public class UserFragment extends Fragment {
                     Log.e("firebase", "Error getting data", task.getException());
                 }
                 else {
-                    Log.d("firebase info", String.valueOf(task.getResult().getValue()));
                     userName = String.valueOf(task.getResult().getValue());
                     userNameText.setText(userName);
+                }
+            }
+        });
+    }
+
+    private void getUserIcon(DatabaseReference r){
+        r.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()){
+                    Log.e("firebase icon", "Error getting data", task.getException());
+                } else {
+                    String path = String.valueOf(task.getResult().getValue());
+                    Log.d("icon path", String.valueOf(task.getResult().getValue()));
+                    storageReference = FirebaseStorage.getInstance().getReference("user_icons/").child(path);
+                    Glide.with(getView())
+                            .asDrawable()
+                            .load(storageReference)
+                            .placeholder(R.drawable.loading_icon)
+                            .error(R.drawable.loading_failed_icon)
+                            .centerCrop()
+                            .into(iconView);
                 }
             }
         });
