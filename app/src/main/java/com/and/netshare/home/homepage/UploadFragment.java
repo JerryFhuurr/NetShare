@@ -1,5 +1,7 @@
 package com.and.netshare.home.homepage;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -63,8 +65,7 @@ public class UploadFragment extends Fragment {
     private String suffix;
     private String filePath;
     private FirebaseUser currentUser;
-    //private final String filePath = Environment.getExternalStorageDirectory() + File.separator + "output_image.jpg";
-
+    private ProgressDialog progressDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -90,6 +91,8 @@ public class UploadFragment extends Fragment {
         imageCat = v.findViewById(R.id.imageCat);
         sizeError = v.findViewById(R.id.preview_sizeError);
 
+        progressDialog = new ProgressDialog(getContext());
+
         choose_local.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,17 +105,6 @@ public class UploadFragment extends Fragment {
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*
-                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                if (suffix.equals("gif")){
-
-                }else {
-                    imageGet.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
-                }
-                byte[] data = outputStream.toByteArray();
-
-
-                 */
                 try {
                     InputStream stream = new FileInputStream(new File(filePath));
 
@@ -130,12 +122,14 @@ public class UploadFragment extends Fragment {
                         uploadName = System.currentTimeMillis() + "+" + currentUser.getEmail() + "_" + imageName.getText().toString();
                     }
                     StorageReference localRef = storageRef.child(uploadName);
+                    showProgressDialog();
                     UploadTask uploadTask = localRef.putStream(stream);
                     uploadTask.addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception exception) {
                             // Handle unsuccessful uploads
                             Log.v("failed", "upload failed");
+                            progressDialog.dismiss();
                             Snackbar.make(getView(), R.string.upload_failed, Snackbar.LENGTH_SHORT).show();
                         }
                     }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -145,6 +139,7 @@ public class UploadFragment extends Fragment {
                             // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
                             Toast.makeText(getContext(), R.string.upload_success, Toast.LENGTH_SHORT).show();
                             UploadFragment.this.getActivity().onBackPressed();
+                            progressDialog.dismiss();
                         }
                     });
                 } catch (FileNotFoundException e) {
@@ -223,5 +218,11 @@ public class UploadFragment extends Fragment {
         startActivityForResult(local, 2);
     }
 
-
+    private void showProgressDialog(){
+        progressDialog.setTitle(R.string.upload_waiting_dialog_title);
+        progressDialog.setMessage(getText(R.string.upload_waiting_dialog_message));
+        progressDialog.setIndeterminate(true);
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
 }
