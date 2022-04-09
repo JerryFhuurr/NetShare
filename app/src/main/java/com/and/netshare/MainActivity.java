@@ -12,6 +12,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,10 +35,14 @@ public class MainActivity extends AppCompatActivity {
     private NavController navController;
     private AppBarConfiguration configuration;
 
+    private long exitTime = 0;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ActivityManager.getInstance().addActivity(this);
         mainAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = mainAuth.getCurrentUser();
         checkUser(firebaseUser);
@@ -108,5 +113,26 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.top_bar, menu);
         return true;
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exit();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public void exit() {
+        if ((System.currentTimeMillis() - exitTime) > 2000) {
+            Toast.makeText(getApplicationContext(), R.string.exit_toast,
+                    Toast.LENGTH_SHORT).show();
+            exitTime = System.currentTimeMillis();
+        } else {
+            ActivityManager.getInstance().exit();
+            System.exit(0);
+        }
+    }
+
 
 }
