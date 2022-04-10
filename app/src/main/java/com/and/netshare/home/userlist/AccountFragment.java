@@ -229,37 +229,33 @@ public class AccountFragment extends Fragment {
 
                     //upload icon to database
                     StorageReference iconNew = FirebaseStorage.getInstance().getReference("user_icons/").child(currentUser.getEmail());
-                        iconNew.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                InputStream iconStream = null;
-                                try {
-                                    iconStream = new FileInputStream(new File(iconNewPath));
-                                } catch (FileNotFoundException e) {
-                                    e.printStackTrace();
+                    InputStream iconStream = null;
+                    try {
+                        iconStream = new FileInputStream(new File(iconNewPath));
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    showProgressDialog();
+                    UploadTask storageTask = iconNew.putStream(iconStream);
+                    storageTask.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.v("icon failed", "upload failed");
+                            progressDialog.dismiss();
+                            Snackbar.make(getView(), R.string.upload_failed, Snackbar.LENGTH_SHORT).show();
+                        }
+                    })
+                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    iconDbRef.setValue(currentUser.getEmail());
+                                    Log.v("success", "upload success");
+                                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                                    Toast.makeText(getContext(), R.string.upload_success, Toast.LENGTH_SHORT).show();
+                                    progressDialog.dismiss();
                                 }
-                                showProgressDialog();
-                                UploadTask storageTask = iconNew.putStream(iconStream);
-                                storageTask.addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.v("icon failed", "upload failed");
-                                        progressDialog.dismiss();
-                                        Snackbar.make(getView(), R.string.upload_failed, Snackbar.LENGTH_SHORT).show();
-                                    }
-                                })
-                                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                            @Override
-                                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                                iconDbRef.setValue(currentUser.getEmail());
-                                                Log.v("success", "upload success");
-                                                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                                                Toast.makeText(getContext(), R.string.upload_success, Toast.LENGTH_SHORT).show();
-                                                progressDialog.dismiss();
-                                            }
-                                        });
-                            }
-                        });
+                            });
+
                 }
                 break;
         }
