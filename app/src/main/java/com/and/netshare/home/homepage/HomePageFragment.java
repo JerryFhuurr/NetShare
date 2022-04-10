@@ -29,9 +29,6 @@ import java.util.ArrayList;
 
 public class HomePageFragment extends Fragment {
 
-    private HomePageSettingsViewModel hpViewModel;
-    private FirebaseStorage storage;
-    private StorageReference ref;
     private FloatingActionButton uploadButton;
     private TabLayout tabs;
     private ViewPager viewPager;
@@ -45,7 +42,6 @@ public class HomePageFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        storage = FirebaseStorage.getInstance();
         ActivityManager.getInstance().addActivity(getActivity());
         initFragments();
 

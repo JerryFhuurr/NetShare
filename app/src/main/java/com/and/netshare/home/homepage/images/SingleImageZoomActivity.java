@@ -27,6 +27,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.navigation.ui.AppBarConfiguration;
 
+import com.and.netshare.PhotoUtils;
 import com.and.netshare.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -202,33 +203,11 @@ public class SingleImageZoomActivity extends AppCompatActivity {
                     @Override
                     public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                         imageSave = resource;
-                        saveImageToGallery(SingleImageZoomActivity.this, imageSave);
+                        PhotoUtils.saveImageToGallery(SingleImageZoomActivity.this, imageSave, "DCIM/NET");
                     }
                 });
     }
 
-    public static void saveImageToGallery(Context context, Bitmap bmp) {
-        // 首先保存图片
-        File appDir = new File(Environment.getExternalStorageDirectory(), "DCIM/NET");
-        if (!appDir.exists()) {
-            appDir.mkdir();
-        }
-        String fileName = "NetShare_" + System.currentTimeMillis() + ".jpg";
-        File file = new File(appDir, fileName);
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-            fos.flush();
-            fos.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        // 最后通知图库更新
-        context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(new File(file.getPath()))));
-        Toast.makeText(context, R.string.zoom_save_ok, Toast.LENGTH_SHORT).show();
-    }
 
 }

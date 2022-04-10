@@ -13,6 +13,7 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
@@ -291,6 +292,75 @@ public class UriUtils {
             }
         }
         return file.getAbsolutePath();
+    }
+
+    public static void deleteUri(Context context, Uri uri) {
+
+        if (uri.toString().startsWith("content://")) {
+            // content://开头的Uri
+            context.getContentResolver().delete(uri, null, null);
+        } else {
+            File file = new File(getRealFilePath(context, uri));
+            if (file.exists()&& file.isFile()){
+                file.delete();
+            }
+        }
+    }
+
+    public static String getRealFilePathB(final Context context, final Uri uri) {
+        if (null == uri)
+            return null;
+        final String scheme = uri.getScheme();
+        String data = null;
+        if (scheme == null)
+            data = uri.getPath();
+        else if (ContentResolver.SCHEME_FILE.equals(scheme)) {
+            data = uri.getPath();
+        } else if (ContentResolver.SCHEME_CONTENT.equals(scheme)) {
+            Cursor cursor = context.getContentResolver().query(uri,
+                    new String[]{MediaStore.Images.ImageColumns.DATA}, null, null, null);
+            if (null != cursor) {
+                if (cursor.moveToFirst()) {
+                    int index = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                    if (index > -1) {
+                        data = cursor.getString(index);
+                    }
+                }
+                cursor.close();
+            }
+        }
+        return data;
+    }
+
+    //删除图库照片
+    public static boolean deleteImage(Context c, String imgPath) {
+        ContentResolver resolver = c.getContentResolver();
+        Cursor cursor = MediaStore.Images.Media.query(resolver, MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                new String[]{MediaStore.Images.Media._ID}, MediaStore.Images.Media.DATA + "=?",
+                new String[]{imgPath}, null);
+        boolean result = false;
+        if (null != cursor && cursor.moveToFirst()) {
+            long id = cursor.getLong(0);
+            Uri contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+            Uri uri = ContentUris.withAppendedId(contentUri, id);
+            Log.e("--deleteImage--uri:" , String.valueOf(uri));
+            int count = c.getContentResolver().delete(uri, null, null);
+            result = count == 1;
+        } else {
+            File file = new File(imgPath);
+            result = file.delete();
+        }
+        return result;
+    }
+
+    public static Uri getUriFromPath(String path) {
+        File picPath = new File(path);
+        Uri uri = null;
+        if(picPath.exists()) {
+            uri = Uri.fromFile(picPath);
+        }
+
+        return uri;
     }
 
 }

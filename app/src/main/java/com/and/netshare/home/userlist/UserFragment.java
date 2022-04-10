@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.and.netshare.DataHandler;
 import com.and.netshare.R;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -79,7 +80,7 @@ public class UserFragment extends Fragment {
         reference = db.getReference("UserEmail/" + email);
         iconRef = db.getReference("UserIcon/" + email);
         getUserName(reference);
-        getUserIcon(iconRef);
+        getUserIcon(iconRef, v);
 
 
         account.setOnClickListener(new View.OnClickListener() {
@@ -122,7 +123,7 @@ public class UserFragment extends Fragment {
         });
     }
 
-    private void getUserIcon(DatabaseReference r){
+    private void getUserIcon(DatabaseReference r, View view){
         r.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -132,11 +133,13 @@ public class UserFragment extends Fragment {
                     String path = String.valueOf(task.getResult().getValue());
                     Log.d("icon path", String.valueOf(task.getResult().getValue()));
                     storageReference = FirebaseStorage.getInstance().getReference("user_icons/").child(path);
-                    Glide.with(getView())
+                    Glide.with(view)
                             .asDrawable()
                             .load(storageReference)
                             .placeholder(R.drawable.loading_icon)
                             .error(R.drawable.loading_failed_icon)
+                            .skipMemoryCache(true)
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
                             .centerCrop()
                             .into(iconView);
                 }
