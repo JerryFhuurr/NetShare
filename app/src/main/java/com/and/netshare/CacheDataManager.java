@@ -54,7 +54,7 @@ public class CacheDataManager {
         long kb = size / 1024;
         int m = (int) (kb / 1024);
         int kbs = (int) (kb % 1024);
-        return m + "." + kbs + "M";
+        return m + "." + kbs + "MB";
     }
 
     /**

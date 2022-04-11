@@ -1,8 +1,10 @@
 package com.and.netshare.home.userlist;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -13,7 +15,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.and.netshare.CacheDataManager;
 import com.and.netshare.DataHandler;
 import com.and.netshare.R;
 import com.bumptech.glide.Glide;
@@ -43,6 +47,7 @@ public class UserFragment extends Fragment {
 
     private Button account;
     private Button about;
+    private Button cache;
     private Button settings;
     private ImageView iconView;
 
@@ -72,6 +77,7 @@ public class UserFragment extends Fragment {
         account = v.findViewById(R.id.user_account);
         about = v.findViewById(R.id.user_about);
         settings = v.findViewById(R.id.user_settings);
+        cache = v.findViewById(R.id.user_cache);
 
         userNameText = v.findViewById(R.id.user_name);
 
@@ -101,6 +107,34 @@ public class UserFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(UserFragment.this).navigate(R.id.action_userFragment_to_settingsFragment);
+            }
+        });
+
+        cache.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder cleanWarn = new AlertDialog.Builder(getContext());
+                cleanWarn.setIcon(R.drawable.clean_icon);
+                try {
+                    cleanWarn.setTitle(getString(R.string.cache_title) + " " + CacheDataManager.getTotalCacheSize(getContext()));
+                    cleanWarn.setMessage(R.string.cache_message);
+                    cleanWarn.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            CacheDataManager.clearAllCache(getContext());
+                            Toast.makeText(getContext(), R.string.cache_OK, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    cleanWarn.setNegativeButton(R.string.cache_cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            //close
+                        }
+                    });
+                    cleanWarn.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 

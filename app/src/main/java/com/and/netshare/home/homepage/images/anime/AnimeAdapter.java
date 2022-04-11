@@ -49,7 +49,7 @@ public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.ViewHolder> 
                 .placeholder(R.drawable.loading_icon)
                 .error(R.drawable.loading_failed_icon)
                 .skipMemoryCache(true)
-                .diskCacheStrategy(DiskCacheStrategy.DATA)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .centerCrop()
                 .into(holder.picture);
     }

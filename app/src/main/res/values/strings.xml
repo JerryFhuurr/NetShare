@@ -41,7 +41,7 @@
     <string name="filter_text">Filter</string>
     <string name="filter_1">Old to new</string>
     <string name="filter_2">New to old</string>
-    
+
     <!-- User -->
     <string name="user_title">User</string>
     <string name="user_item1">Account</string>
@@ -118,4 +118,10 @@
     <!-- pop menu -->
     <string name="pop_save">Save image</string>
     <string name="pop_share">Share</string>
+
+    <!-- cache -->
+    <string name="cache_title">Cache size is </string>
+    <string name="cache_message">This is will take more time when loading images, are you sure?</string>
+    <string name="cache_cancel">Not now</string>
+    <string name="cache_OK">Cache cleaned.</string>
 </resources>

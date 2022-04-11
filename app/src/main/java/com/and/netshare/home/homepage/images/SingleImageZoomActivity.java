@@ -97,7 +97,7 @@ public class SingleImageZoomActivity extends AppCompatActivity {
                 .placeholder(R.drawable.loading_icon)
                 .error(R.drawable.loading_failed_icon)
                 .skipMemoryCache(true)
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(image);
     }
 

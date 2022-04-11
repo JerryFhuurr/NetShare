@@ -51,7 +51,7 @@ public class MemeAdapter extends RecyclerView.Adapter<MemeAdapter.ViewHolder> {
                 .placeholder(R.drawable.loading_icon_small)
                 .error(R.drawable.loading_error_icon_small)
                 .skipMemoryCache(true)
-                .diskCacheStrategy(DiskCacheStrategy.DATA)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .centerCrop()
                 .into(holder.picture);
     }
