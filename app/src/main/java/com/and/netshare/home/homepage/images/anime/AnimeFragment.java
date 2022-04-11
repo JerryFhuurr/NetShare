@@ -127,7 +127,6 @@ public class AnimeFragment extends Fragment {
                 });
     }
 
-
     private void loadList(boolean needReverse) {
         if (!needReverse) {
             adapter = new AnimeAdapter(getContext(), imageList);

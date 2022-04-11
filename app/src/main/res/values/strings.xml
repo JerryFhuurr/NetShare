@@ -67,6 +67,7 @@
     <!-- Preference Titles -->
     <string name="messages_header">Appearance</string>
     <string name="sync_header">Sync</string>
+    <string name="cache">Clean cache</string>
 
     <!-- Messages Preferences -->
     <string name="reply_title">Theme</string>

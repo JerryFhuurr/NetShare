@@ -30,7 +30,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         themeList = getPreferenceManager().findPreference("theme_type");
         assert themeList != null;
         themeList.setOnPreferenceChangeListener(this);
-        themeList.setValue("follow_system");
 
         view_type = getPreferenceManager().findPreference("type_row");
         assert view_type != null;

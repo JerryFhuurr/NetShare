@@ -178,7 +178,7 @@ public class AccountFragment extends Fragment {
                             .placeholder(R.drawable.loading_icon)
                             .error(R.drawable.loading_failed_icon)
                             .skipMemoryCache(true)
-                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .diskCacheStrategy(DiskCacheStrategy.DATA)
                             .centerCrop()
                             .into(iconView);
                 }

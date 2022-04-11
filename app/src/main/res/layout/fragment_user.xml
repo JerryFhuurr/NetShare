@@ -94,6 +94,17 @@
                     android:drawableRight="@drawable/next_icon" />
 
                 <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp" />
+
+                <Button
+                    android:id="@+id/user_cache"
+                    style="@style/user_button_style"
+                    android:text="@string/cache"
+                    android:drawableLeft="@drawable/clean_icon"
+                    android:drawableRight="@drawable/next_icon" />
+
+                <View
                     android:layout_width="match_parent"
                     android:layout_height="3dp" />
 
