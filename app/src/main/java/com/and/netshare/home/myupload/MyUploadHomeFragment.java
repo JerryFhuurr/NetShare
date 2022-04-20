@@ -84,7 +84,39 @@ public class MyUploadHomeFragment extends Fragment {
         StorageReference tabImageRef3 = FirebaseStorage.getInstance().getReference().child("game_images");
         loadData(tabImageRef3, v, 2);
 
-
+        animeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyUploadsHandler.setNum(0);
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.nav_host_fragment, new MineImagesFragment(), null)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+        memeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyUploadsHandler.setNum(1);
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.nav_host_fragment, new MineImagesFragment(), null)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+        gameIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyUploadsHandler.setNum(2);
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.nav_host_fragment, new MineImagesFragment(), null)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
         return v;
     }
 

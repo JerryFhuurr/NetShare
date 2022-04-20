@@ -3,6 +3,7 @@ package com.and.netshare.home.homepage.images;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -14,12 +15,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
@@ -27,13 +30,17 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.navigation.ui.AppBarConfiguration;
 
+import com.and.netshare.MainActivity;
 import com.and.netshare.PhotoUtils;
 import com.and.netshare.R;
+import com.and.netshare.home.myupload.MyUploadsHandler;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -52,6 +59,7 @@ public class SingleImageZoomActivity extends AppCompatActivity {
     private TextView name;
     private TextView cat;
     private TextView uploadTime;
+    private Button delete;
 
     private StorageReference reference;
     private StorageReference imageRef;
@@ -88,6 +96,46 @@ public class SingleImageZoomActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        AlertDialog.Builder deleteAlert = new AlertDialog.Builder(SingleImageZoomActivity.this);
+        deleteAlert.setTitle(R.string.zoom_dialog_title);
+        deleteAlert.setIcon(R.drawable.alert_icon);
+        deleteAlert.setMessage(R.string.zoom_dialog_message);
+        deleteAlert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                imageRef.delete()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(SingleImageZoomActivity.this, R.string.zoom_delete_ok, Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(SingleImageZoomActivity.this, MainActivity.class);
+                                startActivity(intent);
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(SingleImageZoomActivity.this,
+                                        "An error occurred when deleting image", Toast.LENGTH_SHORT).show();
+                                Log.d("delete error", e.getMessage());
+                            }
+                        });
+            }
+        });
+        deleteAlert.setNegativeButton("Let me think", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //nothing here, just cancel the operation
+            }
+        });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteAlert.show();
+            }
+        });
     }
 
     private void loadImage(StorageReference ref) {
@@ -112,6 +160,11 @@ public class SingleImageZoomActivity extends AppCompatActivity {
         cat = findViewById(R.id.zoom_imageCategory);
         uploadTime = findViewById(R.id.zoom_uploadTime);
         topBar = findViewById(R.id.topBar);
+        delete = findViewById(R.id.zoom_delete);
+
+        if (nameString.contains(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
+            delete.setVisibility(View.VISIBLE);
+        }
 
         setSupportActionBar(topBar);
     }

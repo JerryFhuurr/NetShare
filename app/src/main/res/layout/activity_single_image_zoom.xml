@@ -91,6 +91,20 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/single_zoom_content_style"
+                android:paddingHorizontal="6dp">
+
+                <Button
+                    android:id="@+id/zoom_delete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/zoom_delete"
+                    android:visibility="gone"/>
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

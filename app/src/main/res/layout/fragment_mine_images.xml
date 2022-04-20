@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mine_images"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/WhiteSmoke"
+    android:orientation="vertical"
+    tools:context=".home.homepage.images.anime.AnimeFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/WhiteSmoke"
+        android:gravity="right"
+        android:orientation="horizontal"
+        android:paddingVertical="4dp"
+        android:paddingRight="3dp">
+
+        <Button
+            android:id="@+id/mine_sortSelector"
+            style="@style/filter_button_style"
+            android:background="@drawable/filter_button_shape"
+            android:drawableLeft="@drawable/filter_icon"
+            android:text="@string/filter_text"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/mine_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mine_recycle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="4" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</LinearLayout>
+</FrameLayout>
