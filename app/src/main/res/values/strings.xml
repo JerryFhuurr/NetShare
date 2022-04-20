@@ -3,6 +3,7 @@
     <!-- main -->
     <string name="main_login_info">Please login first</string>
     <string name="main_info">Welcome! </string>
+    <string name="no_image_error_label">No images :-(</string>
     <!-- login -->
     <string name="login_email">Email</string>
     <string name="login_password">Password</string>

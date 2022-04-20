@@ -169,8 +169,14 @@ public class MyUploadHomeFragment extends Fragment {
                                 images.add(new SingleImage(item.getName()));
                             }
                         }
-                        Log.d("items", String.valueOf(images.size()));
-                        loadImage(images.get(images.size() - 1) .getPath(), v, categoryNum);
+                        if (images.size() > 0){
+                            loadImage(images.get(images.size() - 1) .getPath(), v, categoryNum);
+                        }else {
+                            animeIcon.setImageResource(R.drawable.anime_substitute);
+                            memeIcon.setImageResource(R.drawable.meme_substitute);
+                            gameIcon.setImageResource(R.drawable.game_substitute);
+                        }
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.and.netshare.DataHandler;
 import com.and.netshare.R;
@@ -40,6 +41,7 @@ public class MineImagesFragment extends Fragment {
     private MineAdapter adapter;
     private SwipeRefreshLayout refresh;
     private boolean shouldReverse;
+    private TextView no_label;
     ArrayList<SingleImage> imageList = new ArrayList<>();
     ArrayList<SingleImage> imageListReverse = new ArrayList<>();
     private int catNum;
@@ -69,6 +71,7 @@ public class MineImagesFragment extends Fragment {
         } else if (catNum == 2) {
             listRef = storage.getReference().child("game_images");
         }
+        loadData(listRef);
         refresh = v.findViewById(R.id.mine_refresh);
         //下拉进度条的背景色，默认为白色
         refresh.setProgressBackgroundColorSchemeColor(getResources().getColor(R.color.white));
@@ -102,9 +105,14 @@ public class MineImagesFragment extends Fragment {
                 }.start();
             }
         });
+
         images = v.findViewById(R.id.mine_recycle);
         images.hasFixedSize();
-        loadData(listRef);
+        no_label = v.findViewById(R.id.mine_no_image_error_label);
+        if (imageList.size() == 0) {
+            no_label.bringToFront();
+            no_label.setVisibility(View.VISIBLE);
+        }
 
         filter = v.findViewById(R.id.mine_sortSelector);
         filter.setOnClickListener(new View.OnClickListener() {

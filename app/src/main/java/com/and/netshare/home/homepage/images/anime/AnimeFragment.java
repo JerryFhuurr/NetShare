@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
@@ -36,6 +37,7 @@ public class AnimeFragment extends Fragment {
     private AnimeAdapter adapter;
     private SwipeRefreshLayout refresh;
     private boolean shouldReverse;
+    private TextView no_error_label;
     ArrayList<SingleImage> imageList = new ArrayList<>();
     ArrayList<SingleImage> imageListReverse = new ArrayList<>();
 
