@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
     private void setBottomNavigationView() {
         navController.addOnDestinationChangedListener(((navController1, navDestination, bundle) -> {
             final int id = navDestination.getId();
-            if (id == R.id.homePageFragment || id == R.id.userFragment) {
+            if (id == R.id.homePageFragment || id == R.id.myFragment) {
                 bottomNavigationView.setVisibility(View.VISIBLE);
             } else {
                 bottomNavigationView.setVisibility(View.GONE);

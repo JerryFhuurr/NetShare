@@ -1,8 +1,6 @@
 package com.and.netshare.home.homepage;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.ImageDecoder;
@@ -23,11 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.documentfile.provider.DocumentFile;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.navigation.fragment.NavHostFragment;
 
 import com.and.netshare.DataHandler;
 import com.and.netshare.R;
@@ -42,7 +36,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -83,12 +76,12 @@ public class UploadFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_upload, container, false);
-
         choose_local = v.findViewById(R.id.choose_local);
         upload = v.findViewById(R.id.upload);
         preview = v.findViewById(R.id.image_preview);
         imageName = v.findViewById(R.id.image_name);
         imageCat = v.findViewById(R.id.imageCat);
+
         sizeError = v.findViewById(R.id.preview_sizeError);
 
         progressDialog = new ProgressDialog(getContext());
@@ -152,7 +145,6 @@ public class UploadFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 imageCategory = imageCat.getSelectedItem().toString();
-                Log.i("image cat", imageCategory);
             }
 
             @Override

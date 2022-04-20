@@ -21,8 +21,6 @@ import com.and.netshare.DataHandler;
 import com.and.netshare.R;
 import com.and.netshare.home.homepage.images.SingleImage;
 import com.and.netshare.home.homepage.images.SingleImageZoomActivity;
-import com.and.netshare.home.homepage.images.anime.AnimeAdapter;
-import com.and.netshare.home.homepage.images.anime.AnimeFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -130,23 +128,16 @@ public class MemeFragment extends Fragment {
     private void loadList(boolean needReverse) {
         if (!needReverse) {
             adapter = new MemeAdapter(getContext(), imageList);
-            images.setAdapter(adapter);
-            adapter.setOnClickListener(singleImage -> {
-                SingleImage.setPathStatic(singleImage.getPath());
-                SingleImage.setCategory("Meme");
-                Intent intent = new Intent(getActivity(), SingleImageZoomActivity.class);
-                startActivity(intent);
-            });
         } else {
             adapter = new MemeAdapter(getContext(), imageListReverse);
-            images.setAdapter(adapter);
-            adapter.setOnClickListener(singleImage -> {
-                SingleImage.setPathStatic(singleImage.getPath());
-                SingleImage.setCategory("Meme");
-                Intent intent = new Intent(getActivity(), SingleImageZoomActivity.class);
-                startActivity(intent);
-            });
         }
+        images.setAdapter(adapter);
+        adapter.setOnClickListener(singleImage -> {
+            SingleImage.setPathStatic(singleImage.getPath());
+            SingleImage.setCategory("Meme");
+            Intent intent = new Intent(getActivity(), SingleImageZoomActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void popMenu(View v) {

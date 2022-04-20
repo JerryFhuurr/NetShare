@@ -43,10 +43,10 @@
     <string name="filter_2">New to old</string>
 
     <!-- User -->
-    <string name="user_title">User</string>
+    <string name="user_title">Settings</string>
     <string name="user_item1">Account</string>
     <string name="user_item2">About</string>
-    <string name="user_item3">Settings</string>
+    <string name="user_item3">General</string>
     <string name="user_item4">Logout</string>
     <string name="user_item5">Exit</string>
 
@@ -124,4 +124,12 @@
     <string name="cache_message">This is will take more time when loading images, are you sure?</string>
     <string name="cache_cancel">Not now</string>
     <string name="cache_OK">Cache cleaned.</string>
+
+    <!-- mine -->
+    <string name="my_title">My uploads</string>
+    <string name="see_all_label">See All</string>
+    <string name="mine_welcome">Welcome back !</string>
+    <string name="mine_tab_1">#Anime</string>
+    <string name="mine_tab_2">#Meme</string>
+    <string name="mine_tab_3">#Game</string>
 </resources>

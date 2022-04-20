@@ -113,7 +113,6 @@ public class AnimeFragment extends Fragment {
                     public void onSuccess(ListResult listResult) {
                         for (StorageReference item : listResult.getItems()) {
                             imageList.add(new SingleImage(item.getName()));
-                            Log.d("item name", item.getName());
                         }
                         imageListReverse = DataHandler.reserveImageList(imageList);
                         loadList(false);
@@ -130,23 +129,16 @@ public class AnimeFragment extends Fragment {
     private void loadList(boolean needReverse) {
         if (!needReverse) {
             adapter = new AnimeAdapter(getContext(), imageList);
-            images.setAdapter(adapter);
-            adapter.setOnClickListener(singleImage -> {
-                SingleImage.setPathStatic(singleImage.getPath());
-                SingleImage.setCategory("Anime");
-                Intent intent = new Intent(getActivity(), SingleImageZoomActivity.class);
-                startActivity(intent);
-            });
         } else {
             adapter = new AnimeAdapter(getContext(), imageListReverse);
-            images.setAdapter(adapter);
-            adapter.setOnClickListener(singleImage -> {
-                SingleImage.setPathStatic(singleImage.getPath());
-                SingleImage.setCategory("Anime");
-                Intent intent = new Intent(getActivity(), SingleImageZoomActivity.class);
-                startActivity(intent);
-            });
         }
+        images.setAdapter(adapter);
+        adapter.setOnClickListener(singleImage -> {
+            SingleImage.setPathStatic(singleImage.getPath());
+            SingleImage.setCategory("Anime");
+            Intent intent = new Intent(getActivity(), SingleImageZoomActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void popMenu(View v) {
