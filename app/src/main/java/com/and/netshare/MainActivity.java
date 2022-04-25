@@ -1,6 +1,7 @@
 package com.and.netshare;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -9,8 +10,11 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.preference.PreferenceManager;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -55,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.bottom_navbar);
         toolbar = findViewById(R.id.topBar);
 
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(this);
+        appThemeLoad(sharedPreferences, this);
+
         setSupportActionBar(toolbar);
     }
 
@@ -94,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         checkUser(firebaseUser);
     }
 
-    public void exitApp(View v){
+    public void exitApp(View v) {
         finish();
         ActivityManager.getInstance().exit();
     }
@@ -111,8 +119,17 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-
-
-
-
+    private void appThemeLoad(SharedPreferences sharedPreferences, Activity a) {
+        String appTheme = sharedPreferences.getString("theme_type", "follow_system");
+        if (appTheme.equals("follow_system")) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+            //a.recreate();
+        } else if (appTheme.equals("light")) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            //a.recreate();
+        } else if (appTheme.equals("dark")) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            //a.recreate();
+        }
+    }
 }

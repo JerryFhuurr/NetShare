@@ -63,7 +63,7 @@ public class MineAdapter extends RecyclerView.Adapter<MineAdapter.ViewHolder> {
                 .placeholder(R.drawable.loading_icon)
                 .error(R.drawable.loading_failed_icon)
                 .skipMemoryCache(true)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .centerCrop()
                 .into(holder.picture);
     }

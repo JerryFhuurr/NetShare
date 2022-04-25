@@ -16,7 +16,7 @@
     <PreferenceCategory app:title="@string/app_settings">
 
         <SwitchPreferenceCompat
-            app:key="image_name"
+            app:key="image_dateType"
             app:summaryOff="@string/image_setOff"
             app:summaryOn="@string/image_setOn"
             app:title="@string/image_setting" />

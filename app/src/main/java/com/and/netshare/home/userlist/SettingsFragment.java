@@ -1,5 +1,6 @@
 package com.and.netshare.home.userlist;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -7,6 +8,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.and.netshare.R;
@@ -16,25 +18,36 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
 
     private HomePageSettingsViewModel hpViewModel;
     private ListPreference themeList;
-    private SwitchPreferenceCompat view_type;
+    private ListPreference languageList;
+    private SwitchPreferenceCompat image_loadType;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey);
-
         initView();
     }
 
     private void initView() {
         hpViewModel = new HomePageSettingsViewModel();
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(getContext());
+
         themeList = getPreferenceManager().findPreference("theme_type");
-        assert themeList != null;
+        themeList.setValue(sharedPreferences.getString("theme_type", "follow_system"));
         themeList.setOnPreferenceChangeListener(this);
 
-        view_type = getPreferenceManager().findPreference("type_row");
-        assert view_type != null;
-        view_type.setOnPreferenceChangeListener(this);
-        view_type.setChecked(false);
+        image_loadType = getPreferenceManager().findPreference("image_dateType");
+        image_loadType.setOnPreferenceChangeListener(this);
+        boolean imageType = sharedPreferences.getBoolean("image_dateType", false);
+        if (imageType) {
+            image_loadType.setChecked(true);
+        } else {
+            image_loadType.setChecked(false);
+        }
+
+        languageList = getPreferenceManager().findPreference("language_setting");
+        languageList.setValue(sharedPreferences.getString("language_setting", "English"));
+        languageList.setOnPreferenceChangeListener(this);
     }
 
 
@@ -56,8 +69,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
                     break;
             }
             return true;
-        } else if (view_type == preference) {
-            hpViewModel.setSingle(view_type.isChecked());
+        } else if (image_loadType == preference) {
+            hpViewModel.setSingle(image_loadType.isChecked());
             return true;
         }
         return false;

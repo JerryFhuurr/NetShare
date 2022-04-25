@@ -51,7 +51,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
                 .placeholder(R.drawable.loading_icon_m)
                 .error(R.drawable.loading_error_icon_m)
                 .skipMemoryCache(true)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .centerCrop()
                 .into(holder.picture);
     }
