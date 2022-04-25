@@ -1,12 +1,14 @@
 package com.and.netshare.home.userlist;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.preference.PreferenceManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -78,15 +80,17 @@ public class UserFragment extends Fragment {
         about = v.findViewById(R.id.user_about);
         settings = v.findViewById(R.id.user_settings);
         cache = v.findViewById(R.id.user_cache);
-
         userNameText = v.findViewById(R.id.user_name);
-
         userEmail.setText(currentUser.getEmail());
+
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(getContext());
+        boolean imageType = sharedPreferences.getBoolean("image_dateType", false);
         String email = DataHandler.changeDotToComaEmail(currentUser.getEmail());
         reference = db.getReference("UserEmail/" + email);
         iconRef = db.getReference("UserIcon/" + email);
         getUserName(reference);
-        getUserIcon(iconRef, v);
+        getUserIcon(iconRef, v, imageType);
 
 
         account.setOnClickListener(new View.OnClickListener() {
@@ -142,14 +146,13 @@ public class UserFragment extends Fragment {
     }
 
 
-    private void getUserName(DatabaseReference ref){
+    private void getUserName(DatabaseReference ref) {
         ref.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
                     Log.e("firebase", "Error getting data", task.getException());
-                }
-                else {
+                } else {
                     userName = String.valueOf(task.getResult().getValue());
                     userNameText.setText(userName);
                 }
@@ -157,25 +160,37 @@ public class UserFragment extends Fragment {
         });
     }
 
-    private void getUserIcon(DatabaseReference r, View view){
+    private void getUserIcon(DatabaseReference r, View view, boolean imageType) {
         r.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()){
+                if (!task.isSuccessful()) {
                     Log.e("firebase icon", "Error getting data", task.getException());
                 } else {
                     String path = String.valueOf(task.getResult().getValue());
                     Log.d("icon path", String.valueOf(task.getResult().getValue()));
                     storageReference = FirebaseStorage.getInstance().getReference("user_icons/").child(path);
-                    Glide.with(view)
-                            .asDrawable()
-                            .load(storageReference)
-                            .placeholder(R.drawable.loading_icon)
-                            .error(R.drawable.loading_failed_icon)
-                            .skipMemoryCache(true)
-                            .diskCacheStrategy(DiskCacheStrategy.NONE)
-                            .centerCrop()
-                            .into(iconView);
+                    if (imageType) {
+                        Glide.with(view)
+                                .asDrawable()
+                                .load(storageReference)
+                                .placeholder(R.drawable.loading_icon)
+                                .error(R.drawable.loading_failed_icon)
+                                .skipMemoryCache(true)
+                                .diskCacheStrategy(DiskCacheStrategy.DATA)
+                                .centerCrop()
+                                .into(iconView);
+                    } else {
+                        Glide.with(view)
+                                .asDrawable()
+                                .load(storageReference)
+                                .placeholder(R.drawable.loading_icon)
+                                .error(R.drawable.loading_failed_icon)
+                                .skipMemoryCache(true)
+                                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                .centerCrop()
+                                .into(iconView);
+                    }
                 }
             }
         });

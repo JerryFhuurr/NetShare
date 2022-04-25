@@ -6,6 +6,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -107,8 +109,12 @@ public class AccountFragment extends Fragment {
 
         nameDbRef = db.getReference("UserEmail/" + DataHandler.changeDotToComaEmail(currentUser.getEmail()));
         iconDbRef = db.getReference("UserIcon/" + DataHandler.changeDotToComaEmail(currentUser.getEmail()));
+
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(getContext());
+        boolean imageType = sharedPreferences.getBoolean("image_dateType", false);
         getUserName(nameDbRef);
-        getUserIcon(iconDbRef);
+        getUserIcon(iconDbRef, imageType);
 
         iconView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,7 +168,7 @@ public class AccountFragment extends Fragment {
         });
     }
 
-    private void getUserIcon(DatabaseReference r) {
+    private void getUserIcon(DatabaseReference r, boolean imageType) {
         r.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -172,15 +178,28 @@ public class AccountFragment extends Fragment {
                     String path = String.valueOf(task.getResult().getValue());
                     Log.d("icon path", String.valueOf(task.getResult().getValue()));
                     iconSRef = FirebaseStorage.getInstance().getReference("user_icons/").child(path);
-                    Glide.with(getView())
-                            .asDrawable()
-                            .load(iconSRef)
-                            .placeholder(R.drawable.loading_icon)
-                            .error(R.drawable.loading_failed_icon)
-                            .skipMemoryCache(true)
-                            .diskCacheStrategy(DiskCacheStrategy.DATA)
-                            .centerCrop()
-                            .into(iconView);
+                    if (imageType) {
+                        Glide.with(getView())
+                                .asDrawable()
+                                .load(iconSRef)
+                                .placeholder(R.drawable.loading_icon)
+                                .error(R.drawable.loading_failed_icon)
+                                .skipMemoryCache(true)
+                                .diskCacheStrategy(DiskCacheStrategy.DATA)
+                                .centerCrop()
+                                .into(iconView);
+                    } else {
+                        Glide.with(getView())
+                                .asDrawable()
+                                .load(iconSRef)
+                                .placeholder(R.drawable.loading_icon)
+                                .error(R.drawable.loading_failed_icon)
+                                .skipMemoryCache(true)
+                                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                .centerCrop()
+                                .into(iconView);
+                    }
+
                 }
             }
         });

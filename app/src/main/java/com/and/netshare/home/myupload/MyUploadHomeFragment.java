@@ -1,10 +1,12 @@
 package com.and.netshare.home.myupload;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.preference.PreferenceManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -72,11 +74,15 @@ public class MyUploadHomeFragment extends Fragment {
         memeIcon = v.findViewById(R.id.mine_meme_tab);
         gameIcon = v.findViewById(R.id.mine_game_tab);
 
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(getContext());
+        boolean imageType = sharedPreferences.getBoolean("image_dateType", false);
+
         String userEmail = DataHandler.changeDotToComaEmail(currentUser.getEmail());
         usernameRef = db.getReference("UserEmail/" + userEmail);
         userIconDBRef = db.getReference("UserIcon/" + userEmail);
         getUsername(usernameRef);
-        getUserIcon(userIconDBRef, v);
+        getUserIcon(userIconDBRef, v, imageType);
 
         StorageReference tabImageRef1 = FirebaseStorage.getInstance().getReference().child("acg_images");
         loadData(tabImageRef1, v, 0);
@@ -126,7 +132,7 @@ public class MyUploadHomeFragment extends Fragment {
         });
     }
 
-    private void getUserIcon(DatabaseReference r, View view) {
+    private void getUserIcon(DatabaseReference r, View view, boolean imageType) {
         r.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -136,15 +142,28 @@ public class MyUploadHomeFragment extends Fragment {
                     String path = String.valueOf(task.getResult().getValue());
                     Log.d("icon path", String.valueOf(task.getResult().getValue()));
                     userIconRef = FirebaseStorage.getInstance().getReference("user_icons/").child(path);
-                    Glide.with(view)
-                            .asDrawable()
-                            .load(userIconRef)
-                            .placeholder(R.drawable.loading_icon)
-                            .error(R.drawable.loading_failed_icon)
-                            .skipMemoryCache(true)
-                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                            .centerCrop()
-                            .into(userIconVIew);
+                    if (imageType) {
+                        Glide.with(view)
+                                .asDrawable()
+                                .load(userIconRef)
+                                .placeholder(R.drawable.loading_icon)
+                                .error(R.drawable.loading_failed_icon)
+                                .skipMemoryCache(true)
+                                .diskCacheStrategy(DiskCacheStrategy.DATA)
+                                .centerCrop()
+                                .into(userIconVIew);
+                    } else {
+                        Glide.with(view)
+                                .asDrawable()
+                                .load(userIconRef)
+                                .placeholder(R.drawable.loading_icon)
+                                .error(R.drawable.loading_failed_icon)
+                                .skipMemoryCache(true)
+                                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                .centerCrop()
+                                .into(userIconVIew);
+                    }
+
                 }
             }
         });
@@ -161,9 +180,9 @@ public class MyUploadHomeFragment extends Fragment {
                                 images.add(new SingleImage(item.getName()));
                             }
                         }
-                        if (images.size() > 0){
-                            loadImage(images.get(images.size() - 1) .getPath(), v, categoryNum);
-                        }else {
+                        if (images.size() > 0) {
+                            loadImage(images.get(images.size() - 1).getPath(), v, categoryNum);
+                        } else {
                             animeIcon.setImageResource(R.drawable.anime_substitute);
                             memeIcon.setImageResource(R.drawable.meme_substitute);
                             gameIcon.setImageResource(R.drawable.game_substitute);

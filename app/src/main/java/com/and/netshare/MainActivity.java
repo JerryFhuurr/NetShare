@@ -119,17 +119,15 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    //TODO 检查是否需要在此处添加语言相关的设置
     private void appThemeLoad(SharedPreferences sharedPreferences, Activity a) {
         String appTheme = sharedPreferences.getString("theme_type", "follow_system");
         if (appTheme.equals("follow_system")) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-            //a.recreate();
         } else if (appTheme.equals("light")) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            //a.recreate();
         } else if (appTheme.equals("dark")) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            //a.recreate();
         }
     }
 }
