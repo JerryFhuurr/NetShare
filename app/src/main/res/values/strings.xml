@@ -74,14 +74,11 @@
     <string name="reply_title">Theme</string>
 
     <!-- Second Preferences -->
-    <string name="homepage_settings_title">Home page appearance</string>
-    <string name="homepage_settings_attachment">Display name of images</string>
-    <string name="attachment_summary_on">The name and username will display below each image
-    </string>
-    <string name="attachment_summary_off">Only display the image</string>
-    <string name="type_row_title">Type of view</string>
-    <string name="type_row_sON">Single</string>
-    <string name="type_row_sOFF">Double</string>
+    <string name="app_settings">App settings</string>
+    <string name="image_setting">Load original images for user icon ?</string>
+    <string name="image_setOn">The image will be more explicit but need more time to load.</string>
+    <string name="image_setOff">The image will not be as explicit as the original but will save loading time. </string>
+    <string name="language_set">Display language</string>
 
     <!-- themes titles -->
     <string name="settings_theme_title1">Follow system</string>

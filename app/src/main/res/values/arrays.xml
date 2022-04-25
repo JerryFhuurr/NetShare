@@ -17,4 +17,9 @@
         <item>Meme</item>
         <item>Game image</item>
     </string-array>
+
+    <string-array name="languages">
+        <item>English</item>
+        <item>Simplified - Chinese</item>
+    </string-array>
 </resources>

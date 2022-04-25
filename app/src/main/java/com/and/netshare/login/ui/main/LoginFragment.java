@@ -63,12 +63,8 @@ public class LoginFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         forgetPassword = v.findViewById(R.id.login_forget);
         registerButton = v.findViewById(R.id.button_register);
-        return v;
-    }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+
         mViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -142,6 +138,7 @@ public class LoginFragment extends Fragment {
                 NavHostFragment.findNavController(LoginFragment.this).navigate(R.id.action_loginFragment_to_registerFragment);
             }
         });
+        return v;
     }
 
     @Override

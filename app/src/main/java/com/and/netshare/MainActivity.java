@@ -80,9 +80,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkUser(FirebaseUser currentUser) {
-        if (currentUser != null) {
-            Toast.makeText(this, getString(R.string.main_info) + " " +  currentUser.getEmail(), Toast.LENGTH_SHORT).show();
-        } else {
+        if (currentUser == null) {
             Toast.makeText(this, R.string.main_login_info, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);

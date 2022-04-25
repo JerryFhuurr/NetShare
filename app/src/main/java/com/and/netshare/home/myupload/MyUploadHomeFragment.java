@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -88,33 +89,24 @@ public class MyUploadHomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 MyUploadsHandler.setNum(0);
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.nav_host_fragment, new MineImagesFragment(), null)
-                        .addToBackStack(null)
-                        .commit();
+                NavHostFragment.findNavController(MyUploadHomeFragment.this)
+                        .navigate(R.id.mineImagesFragment);
             }
         });
         memeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MyUploadsHandler.setNum(1);
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.nav_host_fragment, new MineImagesFragment(), null)
-                        .addToBackStack(null)
-                        .commit();
+                NavHostFragment.findNavController(MyUploadHomeFragment.this)
+                        .navigate(R.id.mineImagesFragment);
             }
         });
         gameIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MyUploadsHandler.setNum(2);
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.nav_host_fragment, new MineImagesFragment(), null)
-                        .addToBackStack(null)
-                        .commit();
+                NavHostFragment.findNavController(MyUploadHomeFragment.this)
+                        .navigate(R.id.mineImagesFragment);
             }
         });
         return v;

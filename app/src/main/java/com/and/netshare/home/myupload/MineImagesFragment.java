@@ -110,8 +110,9 @@ public class MineImagesFragment extends Fragment {
         images.hasFixedSize();
         no_label = v.findViewById(R.id.mine_no_image_error_label);
         if (imageList.size() == 0) {
-            no_label.bringToFront();
             no_label.setVisibility(View.VISIBLE);
+        } else {
+            no_label.setVisibility(View.GONE);
         }
 
         filter = v.findViewById(R.id.mine_sortSelector);

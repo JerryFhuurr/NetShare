@@ -13,20 +13,21 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/homepage_settings_title">
+    <PreferenceCategory app:title="@string/app_settings">
 
         <SwitchPreferenceCompat
             app:key="image_name"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/homepage_settings_attachment" />
+            app:summaryOff="@string/image_setOff"
+            app:summaryOn="@string/image_setOn"
+            app:title="@string/image_setting" />
 
-        <!-- app:dependency="image_name" -->
-        <SwitchPreferenceCompat
-            app:key="type_row"
-            app:summaryOff="@string/type_row_sOFF"
-            app:summaryOn="@string/type_row_sON"
-            app:title="@string/type_row_title" />
+        <ListPreference
+            app:defaultValue="English"
+            app:entries="@array/languages"
+            app:entryValues="@array/languages"
+            app:key="language_setting"
+            app:title="@string/language_set"
+            app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
 

@@ -82,4 +82,8 @@
             android:id="@+id/action_myUploadHomeFragment_to_homePageFragment"
             app:destination="@id/homePageFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/mineImagesFragment"
+        android:name="com.and.netshare.home.myupload.MineImagesFragment"
+        android:label="@string/my_title" />
 </navigation>

@@ -82,12 +82,8 @@ public class RegisterFragment extends Fragment {
         newUser = db.getReference("UserEmail/");
         newIcon = db.getReference("UserIcon/");
         error_label = v.findViewById(R.id.error_label);
-        return v;
-    }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -134,6 +130,7 @@ public class RegisterFragment extends Fragment {
             }
         });
 
+        return v;
     }
 
     @Override
