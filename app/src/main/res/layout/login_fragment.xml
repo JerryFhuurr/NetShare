@@ -128,5 +128,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.178" />
 
+    <Button
+        android:id="@+id/login_otherType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_otherType"
+        style="@style/login_button_style"
+        android:onClick="loginOtherAccount"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_forget"
+        app:layout_constraintVertical_bias="0.136" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

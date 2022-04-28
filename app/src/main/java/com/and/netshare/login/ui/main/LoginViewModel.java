@@ -1,10 +1,9 @@
 package com.and.netshare.login.ui.main;
 
 import androidx.lifecycle.ViewModel;
-
 public class LoginViewModel extends ViewModel {
 
-    //maybe need a list ?
+    private static String loginType = "";
 
     private LoginInfo info;
 
@@ -26,5 +25,13 @@ public class LoginViewModel extends ViewModel {
 
     public String getPassword() {
         return info.getPassword();
+    }
+
+    public static void setLoginType(String loginType) {
+        LoginViewModel.loginType = loginType;
+    }
+
+    public static String getLoginType() {
+        return loginType;
     }
 }

@@ -14,11 +14,16 @@
     <string name="login_forget">Forget password?</string>
     <string name="login_toast1">A username already exists</string>
     <string name="login_fail_toast">Email, password is wrong or the account is already logged in</string>
+
+    <string name="login_otherType">Have other accounts ? Click here !</string>
+    <string name="login_otherCancel">SIGN IN CANCELLED</string>
     <!-- login reset -->
     <string name="login_reset_title">Reset password</string>
     <string name="login_reset_body">Enter email here to reset</string>
     <string name="login_reset_ok">Email has been sent !</string>
     <string name="login_reset_error">Cannot find this email !</string>
+    <string name="login_nullError">Please provide email and password !</string>
+
     <!-- register -->
     <string name="register_title">Register</string>
     <string name="register_email">Your email</string>
@@ -32,6 +37,7 @@
     <string name="register_password_hint">At least 6 characters</string>
     <string name="register_username_hint">Username (Optional)</string>
     <string name="register_email_occupied">The email address is already in use by another account.</string>
+
     <!-- home -->
     <string name="home_title">Home</string>
 
