@@ -2,6 +2,7 @@ package com.and.netshare.home.userlist;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -11,8 +12,10 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 
+import com.and.netshare.MainActivity;
 import com.and.netshare.R;
 import com.and.netshare.home.homepage.HomePageSettingsViewModel;
+import com.and.netshare.language.LanguageUtil;
 
 public class SettingsFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceChangeListener {
 
@@ -72,7 +75,26 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Prefer
         } else if (image_loadType == preference) {
             hpViewModel.setSingle(image_loadType.isChecked());
             return true;
+        } else if (languageList == preference) {
+            Log.d("language", newValue.toString());
+            switch (newValue.toString()) {
+                case "English":
+                    showSaveLanguage("en");
+                    break;
+                case "Simplified - Chinese":
+                    showSaveLanguage("ch");
+                    break;
+            }
+            return true;
         }
         return false;
+    }
+
+    /**
+     * 保存设置的语言
+     */
+    private void showSaveLanguage(String language) {
+        //设置的语言、重启的类一般为应用主入口（微信也是到首页）
+        LanguageUtil.changeAppLanguage(getActivity(), language, MainActivity.class);
     }
 }

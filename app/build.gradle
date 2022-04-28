@@ -11,7 +11,7 @@ android {
         minSdk 26
         targetSdk 32
         versionCode 1
-        versionName "1.9"
+        versionName "2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -44,6 +44,7 @@ dependencies {
     // FirebaseUI for Cloud Storage
     implementation 'com.firebaseui:firebase-ui-storage:8.0.1'
     implementation 'com.github.bumptech.glide:glide:4.13.1'
+    implementation 'androidx.databinding:compilerCommon:3.2.0-alpha11'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.1'
 
     // Import the Firebase BoM

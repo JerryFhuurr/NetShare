@@ -16,6 +16,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +24,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.and.netshare.language.LanguageUtil;
 import com.and.netshare.login.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NavController navController;
     private AppBarConfiguration configuration;
+    private static boolean isFirst = true;
 
     private long exitTime = 0;
 
@@ -45,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        checkLanguage();
         setContentView(R.layout.activity_main);
 
         mainAuth = FirebaseAuth.getInstance();
@@ -52,6 +56,21 @@ public class MainActivity extends AppCompatActivity {
         checkUser(firebaseUser);
         initView();
         setupNavigation();
+    }
+
+    private void checkLanguage(){
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(this);
+        String language = sharedPreferences.getString("language_setting", "English");
+        Log.d("language store", language);
+        if (isFirst){
+            isFirst = false;
+            if (language.equals("English")) {
+                LanguageUtil.changeAppLanguage(this, "en", MainActivity.class);
+            }else if (language.equals("Simplified - Chinese")){
+                LanguageUtil.changeAppLanguage(this, "ch", MainActivity.class);
+            }
+        }
     }
 
     private void initView() {
@@ -119,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    //TODO 检查是否需要在此处添加语言相关的设置
     private void appThemeLoad(SharedPreferences sharedPreferences, Activity a) {
         String appTheme = sharedPreferences.getString("theme_type", "follow_system");
         if (appTheme.equals("follow_system")) {
