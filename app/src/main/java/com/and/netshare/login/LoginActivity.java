@@ -2,6 +2,7 @@ package com.and.netshare.login;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -24,8 +25,11 @@ import com.and.netshare.MainActivity;
 import com.and.netshare.R;
 import com.and.netshare.login.ui.main.LoginFragment;
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -72,13 +76,45 @@ public class LoginActivity extends AppCompatActivity {
                 .setOpenableLayout(drawerLayout).build();
     }
 
-    private void setUserInfo(){
+    private void setUserInfo() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseDatabase db = FirebaseDatabase.getInstance("https://netshare-f4723-default-rtdb.asia-southeast1.firebasedatabase.app");
         DatabaseReference newUser = db.getReference("UserEmail/");
         DatabaseReference newIcon = db.getReference("UserIcon/");
-        newUser.child(DataHandler.changeDotToComaEmail(user.getEmail())).setValue("NewUser");
-        newIcon.child(DataHandler.changeDotToComaEmail(user.getEmail())).setValue("default_icon.png");
+
+        newUser.child(DataHandler.changeDotToComaEmail(user.getEmail()))
+                .get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()){
+                    Log.e("firebase", "Error getting data", task.getException());
+                } else {
+                    String username = String.valueOf(task.getResult().getValue());
+                    if (username.equals(null)){
+                        newUser.child(DataHandler.changeDotToComaEmail(user.getEmail())).setValue("NewUser");
+                    }else {
+                        newUser.child(DataHandler.changeDotToComaEmail(user.getEmail())).setValue(username);
+                    }
+                }
+            }
+        });
+
+        newIcon.child(DataHandler.changeDotToComaEmail(user.getEmail()))
+                .get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()){
+                    Log.e("firebase", "Error getting data", task.getException());
+                } else {
+                    String userIcon = String.valueOf(task.getResult().getValue());
+                    if (userIcon.equals(null)){
+                        newIcon.child(DataHandler.changeDotToComaEmail(user.getEmail())).setValue("default_icon.png");
+                    }else {
+                        newIcon.child(DataHandler.changeDotToComaEmail(user.getEmail())).setValue(userIcon);
+                    }
+                }
+            }
+        });
     }
 
     private void goToMainActivity() {
