@@ -1,7 +1,8 @@
 
+![logo](https://i.postimg.cc/kG1TnL8Q/logo.png "App logo")
 NetShare app
 ==============================
-## Description and motivation of app <br>
+## Why develop this app? <br>
 This app can let users upload images and handle them, such as share, delete. Users can see all the images they uploaded and select the image to share to other users. 
 The app is aim to make a room for the people who wants to share some beautiful images to others but neither want to use the paid net disk 
 nor want to use the free net disk with a lot of useless functions. <br>
