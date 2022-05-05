@@ -43,6 +43,7 @@ public class MyUploadHomeFragment extends Fragment {
     private FirebaseDatabase db;
     private DatabaseReference usernameRef;
     private DatabaseReference userIconDBRef;
+
     private TextView username;
     private ImageView userIconVIew;
     private ImageView animeIcon;

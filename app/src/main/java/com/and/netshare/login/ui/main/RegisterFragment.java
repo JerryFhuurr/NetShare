@@ -1,12 +1,11 @@
 package com.and.netshare.login.ui.main;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
@@ -21,25 +20,14 @@ import android.widget.Toast;
 import com.and.netshare.MainActivity;
 import com.and.netshare.R;
 import com.and.netshare.DataHandler;
+import com.and.netshare.login.ui.main.viewmodel.LoginViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FileDownloadTask;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class RegisterFragment extends Fragment {
 
@@ -54,6 +42,7 @@ public class RegisterFragment extends Fragment {
     private FirebaseDatabase db;
     private DatabaseReference newUser;
     private DatabaseReference newIcon;
+    private LoginViewModel loginViewModel;
     private TextView error_label;
     public static final String REGEX_EMAIL = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";   //verify email
 
@@ -65,6 +54,7 @@ public class RegisterFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db = FirebaseDatabase.getInstance("https://netshare-f4723-default-rtdb.asia-southeast1.firebasedatabase.app");
+        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
     }
 
     @Override
@@ -106,7 +96,7 @@ public class RegisterFragment extends Fragment {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
-                                            if (userNameString.equals("")){
+                                            if (userNameString.equals("")) {
                                                 newUser.child(DataHandler.changeDotToComaEmail(emailString)).setValue("NewUser");
                                             } else {
                                                 newUser.child(DataHandler.changeDotToComaEmail(emailString)).setValue(userNameString);
@@ -114,6 +104,8 @@ public class RegisterFragment extends Fragment {
                                             newIcon.child(DataHandler.changeDotToComaEmail(emailString)).setValue("default_icon.png");
 
                                             Toast.makeText(getContext(), R.string.register_info, Toast.LENGTH_SHORT).show();
+
+                                            loginViewModel.setInfo(emailString, password1, "email");
                                             startActivity(new Intent(getActivity(), MainActivity.class));
                                         } else {
                                             Log.d("upload register exception", String.valueOf(task.getException()));
@@ -124,7 +116,7 @@ public class RegisterFragment extends Fragment {
                     } else {
                         error_label.setText(R.string.register_error);
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     Log.d("register error ", e.getMessage());
                 }
             }

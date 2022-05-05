@@ -6,11 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,7 +22,7 @@ import com.and.netshare.ActivityManager;
 import com.and.netshare.DataHandler;
 import com.and.netshare.MainActivity;
 import com.and.netshare.R;
-import com.and.netshare.login.ui.main.LoginFragment;
+import com.and.netshare.login.ui.main.viewmodel.LoginViewModel;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -42,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NavController navController;
     private AppBarConfiguration configuration;
+    private LoginViewModel loginViewModel;
 
     private long exitTime = 0;
 
@@ -66,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
     private void initView() {
         drawerLayout = findViewById(R.id.login_drawer);
         toolbar = findViewById(R.id.login_topbar);
+        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
     }
 
     private void setupNavigation() {
@@ -86,13 +87,14 @@ public class LoginActivity extends AppCompatActivity {
                 .get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()){
+                if (!task.isSuccessful()) {
                     Log.e("firebase", "Error getting data", task.getException());
                 } else {
                     String username = String.valueOf(task.getResult().getValue());
-                    if (username.equals(null)){
+                    loginViewModel.setInfo(username, null, "google");
+                    if (username.equals(null)) {
                         newUser.child(DataHandler.changeDotToComaEmail(user.getEmail())).setValue("NewUser");
-                    }else {
+                    } else {
                         newUser.child(DataHandler.changeDotToComaEmail(user.getEmail())).setValue(username);
                     }
                 }
@@ -103,13 +105,13 @@ public class LoginActivity extends AppCompatActivity {
                 .get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()){
+                if (!task.isSuccessful()) {
                     Log.e("firebase", "Error getting data", task.getException());
                 } else {
                     String userIcon = String.valueOf(task.getResult().getValue());
-                    if (userIcon.equals(null)){
+                    if (userIcon.equals(null)) {
                         newIcon.child(DataHandler.changeDotToComaEmail(user.getEmail())).setValue("default_icon.png");
-                    }else {
+                    } else {
                         newIcon.child(DataHandler.changeDotToComaEmail(user.getEmail())).setValue(userIcon);
                     }
                 }

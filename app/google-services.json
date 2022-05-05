@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "361699786872",
+    "firebase_url": "https://netshare-f4723-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "netshare-f4723",
     "storage_bucket": "netshare-f4723.appspot.com"
   },
@@ -12,7 +13,20 @@
           "package_name": "com.and.netshare"
         }
       },
-      "oauth_client": [
+       "oauth_client": [
+          {
+            "client_id": "361699786872-f19rfanpl1fofsobr0m93s2jnu61m28i.apps.googleusercontent.com",
+            "client_type": 3
+          }
+        ],
+        {
+          "client_id": "361699786872-piquat6n3lpcbhnfdkqnvtm6spij3tkc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.and.netshare",
+            "certificate_hash": "a873036dccfa5684f3ee6d59211d73032575bbe6"
+          }
+        },
         {
           "client_id": "361699786872-do5prfvdvbvoldkvs0fm3c6pf69uog4e.apps.googleusercontent.com",
           "client_type": 3

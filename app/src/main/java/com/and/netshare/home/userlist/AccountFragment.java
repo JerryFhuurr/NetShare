@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.preference.PreferenceManager;
 
 import android.os.Environment;
@@ -39,6 +40,7 @@ import com.and.netshare.R;
 import com.and.netshare.UriUtils;
 import com.and.netshare.home.homepage.UploadFragment;
 import com.and.netshare.home.homepage.images.SingleImageZoomActivity;
+import com.and.netshare.login.ui.main.viewmodel.LoginViewModel;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -64,6 +66,7 @@ import java.io.InputStream;
 
 public class AccountFragment extends Fragment {
 
+    private TextView changePasswordLabel;
     private EditText userName;
     private TextView userEmail;
     private Button editUsername;
@@ -81,6 +84,7 @@ public class AccountFragment extends Fragment {
     private DatabaseReference nameDbRef;
     private DatabaseReference iconDbRef;
     private StorageReference iconSRef;
+    private LoginViewModel loginViewModel;
 
     public AccountFragment() {
         // Required empty public constructor
@@ -92,6 +96,7 @@ public class AccountFragment extends Fragment {
         userAuth = FirebaseAuth.getInstance();
         currentUser = userAuth.getCurrentUser();
         db = FirebaseDatabase.getInstance("https://netshare-f4723-default-rtdb.asia-southeast1.firebasedatabase.app");
+        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
     }
 
     @Override
@@ -106,6 +111,7 @@ public class AccountFragment extends Fragment {
         updatePassword = v.findViewById(R.id.change_password);
         iconView = v.findViewById(R.id.account_icon);
         progressDialog = new ProgressDialog(getContext());
+        changePasswordLabel = v.findViewById(R.id.changePasswordLabel);
 
         nameDbRef = db.getReference("UserEmail/" + DataHandler.changeDotToComaEmail(currentUser.getEmail()));
         iconDbRef = db.getReference("UserIcon/" + DataHandler.changeDotToComaEmail(currentUser.getEmail()));
@@ -115,6 +121,11 @@ public class AccountFragment extends Fragment {
         boolean imageType = sharedPreferences.getBoolean("image_dateType", false);
         getUserName(nameDbRef);
         getUserIcon(iconDbRef, imageType);
+
+        if (loginViewModel.getLoginType().equals("google")){
+            changePasswordLabel.setVisibility(View.GONE);
+            updatePassword.setVisibility(View.GONE);
+        }
 
         iconView.setOnClickListener(new View.OnClickListener() {
             @Override
