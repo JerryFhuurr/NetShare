@@ -13,12 +13,7 @@
           "package_name": "com.and.netshare"
         }
       },
-       "oauth_client": [
-          {
-            "client_id": "361699786872-f19rfanpl1fofsobr0m93s2jnu61m28i.apps.googleusercontent.com",
-            "client_type": 3
-          }
-        ],
+      "oauth_client": [
         {
           "client_id": "361699786872-piquat6n3lpcbhnfdkqnvtm6spij3tkc.apps.googleusercontent.com",
           "client_type": 1,
