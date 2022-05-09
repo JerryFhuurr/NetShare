@@ -18,7 +18,7 @@
     <string name="login_toast1">A username already exists</string>
     <string name="login_fail_toast">Email, password is wrong or the account is already logged in</string>
 
-    <string name="login_otherType">Have other accounts ? Click here !</string>
+    <string name="login_otherType">Login with Google account</string>
     <string name="login_otherCancel">SIGN IN CANCELLED</string>
     <!-- login reset -->
     <string name="login_reset_title">Reset password</string>

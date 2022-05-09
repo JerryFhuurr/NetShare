@@ -98,7 +98,7 @@
     <string name="mine_tab_2">#表情包</string>
     <string name="mine_tab_3">#游戏截图</string>
     <string name="login_nullError">请输入邮箱和密码！</string>
-    <string name="login_otherType">有其他账户？请点击此处登录</string>
+    <string name="login_otherType">谷歌用户登录</string>
     <string name="login_otherCancel">用户取消了登录操作</string>
     <string name="error_network">加载失败，请检查网络连接</string>
 </resources>
