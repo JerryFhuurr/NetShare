@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">NetShare</string>
+    <!-- general -->
+    <string name="error_network">Loading failed, please check your network.</string>
+
     <!-- main -->
     <string name="main_login_info">Please login first</string>
     <string name="main_info">Welcome! </string>

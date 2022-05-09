@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.and.netshare.DataHandler;
 import com.and.netshare.R;
@@ -125,6 +126,7 @@ public class MyUploadHomeFragment extends Fragment {
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
                     Log.e("firebase", "Error getting data", task.getException());
+                    Toast.makeText(getContext(), R.string.error_network, Toast.LENGTH_SHORT).show();
                 } else {
                     String userName = String.valueOf(task.getResult().getValue());
                     username.setText(userName);
@@ -139,6 +141,7 @@ public class MyUploadHomeFragment extends Fragment {
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
                     Log.e("firebase icon", "Error getting data", task.getException());
+                    Toast.makeText(getContext(), R.string.error_network, Toast.LENGTH_SHORT).show();
                 } else {
                     String path = String.valueOf(task.getResult().getValue());
                     Log.d("icon path", String.valueOf(task.getResult().getValue()));
@@ -147,8 +150,8 @@ public class MyUploadHomeFragment extends Fragment {
                         Glide.with(view)
                                 .asDrawable()
                                 .load(userIconRef)
-                                .placeholder(R.drawable.loading_icon)
-                                .error(R.drawable.loading_failed_icon)
+                                .thumbnail(Glide.with(getContext()).load(R.drawable.loading_animation))
+                                .error(R.drawable.ic_loading_fail)
                                 .skipMemoryCache(true)
                                 .diskCacheStrategy(DiskCacheStrategy.DATA)
                                 .centerCrop()
@@ -157,8 +160,8 @@ public class MyUploadHomeFragment extends Fragment {
                         Glide.with(view)
                                 .asDrawable()
                                 .load(userIconRef)
-                                .placeholder(R.drawable.loading_icon)
-                                .error(R.drawable.loading_failed_icon)
+                                .thumbnail(Glide.with(getContext()).load(R.drawable.loading_animation))
+                                .error(R.drawable.ic_loading_fail)
                                 .skipMemoryCache(true)
                                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                                 .centerCrop()
@@ -205,8 +208,8 @@ public class MyUploadHomeFragment extends Fragment {
             Glide.with(view)
                     .asDrawable()
                     .load(storageReference)
-                    .placeholder(R.drawable.loading_icon_small)
-                    .error(R.drawable.loading_error_icon_small)
+                    .thumbnail(Glide.with(getContext()).load(R.drawable.loading_animation))
+                    .error(R.drawable.ic_loading_fail)
                     .skipMemoryCache(true)
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                     .centerCrop()
@@ -216,8 +219,8 @@ public class MyUploadHomeFragment extends Fragment {
             Glide.with(view)
                     .asDrawable()
                     .load(storageReference)
-                    .placeholder(R.drawable.loading_icon_small)
-                    .error(R.drawable.loading_error_icon_small)
+                    .thumbnail(Glide.with(getContext()).load(R.drawable.loading_animation))
+                    .error(R.drawable.ic_loading_fail)
                     .skipMemoryCache(true)
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                     .centerCrop()
@@ -227,8 +230,8 @@ public class MyUploadHomeFragment extends Fragment {
             Glide.with(view)
                     .asDrawable()
                     .load(storageReference)
-                    .placeholder(R.drawable.loading_icon_small)
-                    .error(R.drawable.loading_error_icon_small)
+                    .thumbnail(Glide.with(getContext()).load(R.drawable.loading_animation))
+                    .error(R.drawable.ic_loading_fail)
                     .skipMemoryCache(true)
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                     .centerCrop()

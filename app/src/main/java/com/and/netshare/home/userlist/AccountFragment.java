@@ -3,6 +3,7 @@ package com.and.netshare.home.userlist;
 import static android.content.ContentValues.TAG;
 
 import android.Manifest;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -10,11 +11,13 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -42,7 +45,11 @@ import com.and.netshare.home.homepage.UploadFragment;
 import com.and.netshare.home.homepage.images.SingleImageZoomActivity;
 import com.and.netshare.login.ui.main.viewmodel.LoginViewModel;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -122,7 +129,7 @@ public class AccountFragment extends Fragment {
         getUserName(nameDbRef);
         getUserIcon(iconDbRef, imageType);
 
-        if (loginViewModel.getLoginType().equals("google")){
+        if (loginViewModel.getLoginType().equals("google")) {
             changePasswordLabel.setVisibility(View.GONE);
             updatePassword.setVisibility(View.GONE);
         }
@@ -154,7 +161,6 @@ public class AccountFragment extends Fragment {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     Log.d(TAG, "Reset password email sent.");
-
                                     Snackbar.make(v, R.string.account_resetPassword, Snackbar.LENGTH_SHORT).show();
                                 }
                             }
@@ -170,6 +176,7 @@ public class AccountFragment extends Fragment {
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
                     Log.e("firebase", "Error getting data", task.getException());
+                    Toast.makeText(getContext(), R.string.error_network, Toast.LENGTH_SHORT).show();
                 } else {
                     Log.d("firebase info", String.valueOf(task.getResult().getValue()));
                     String userNameString = String.valueOf(task.getResult().getValue());
@@ -185,6 +192,7 @@ public class AccountFragment extends Fragment {
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
                     Log.e("firebase icon", "Error getting data", task.getException());
+                    Toast.makeText(getContext(), R.string.error_network, Toast.LENGTH_SHORT).show();
                 } else {
                     String path = String.valueOf(task.getResult().getValue());
                     Log.d("icon path", String.valueOf(task.getResult().getValue()));
@@ -193,7 +201,7 @@ public class AccountFragment extends Fragment {
                         Glide.with(getView())
                                 .asDrawable()
                                 .load(iconSRef)
-                                .placeholder(R.drawable.loading_icon)
+                                .thumbnail(Glide.with(getContext()).load(R.drawable.loading_animation))
                                 .error(R.drawable.loading_failed_icon)
                                 .skipMemoryCache(true)
                                 .diskCacheStrategy(DiskCacheStrategy.DATA)
@@ -203,7 +211,7 @@ public class AccountFragment extends Fragment {
                         Glide.with(getView())
                                 .asDrawable()
                                 .load(iconSRef)
-                                .placeholder(R.drawable.loading_icon)
+                                .thumbnail(Glide.with(getContext()).load(R.drawable.loading_animation))
                                 .error(R.drawable.loading_failed_icon)
                                 .skipMemoryCache(true)
                                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)

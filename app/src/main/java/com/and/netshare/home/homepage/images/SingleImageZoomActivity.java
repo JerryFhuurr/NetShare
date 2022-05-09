@@ -142,8 +142,8 @@ public class SingleImageZoomActivity extends AppCompatActivity {
         Glide.with(this)
                 .asDrawable()
                 .load(ref)
-                .placeholder(R.drawable.loading_icon)
-                .error(R.drawable.loading_failed_icon)
+                .thumbnail(Glide.with(this).load(R.drawable.loading_animation))
+                .error(R.drawable.ic_loading_fail)
                 .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(image);

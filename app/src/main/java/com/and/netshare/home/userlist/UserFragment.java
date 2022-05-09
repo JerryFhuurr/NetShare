@@ -152,6 +152,7 @@ public class UserFragment extends Fragment {
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
                     Log.e("firebase", "Error getting data", task.getException());
+                    Toast.makeText(getContext(), R.string.error_network, Toast.LENGTH_SHORT).show();
                 } else {
                     userName = String.valueOf(task.getResult().getValue());
                     userNameText.setText(userName);
@@ -166,6 +167,7 @@ public class UserFragment extends Fragment {
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (!task.isSuccessful()) {
                     Log.e("firebase icon", "Error getting data", task.getException());
+                    Toast.makeText(getContext(), R.string.error_network, Toast.LENGTH_SHORT).show();
                 } else {
                     String path = String.valueOf(task.getResult().getValue());
                     Log.d("icon path", String.valueOf(task.getResult().getValue()));
@@ -174,9 +176,9 @@ public class UserFragment extends Fragment {
                         Glide.with(view)
                                 .asDrawable()
                                 .load(storageReference)
-                                .placeholder(R.drawable.loading_icon)
-                                .error(R.drawable.loading_failed_icon)
-                                .skipMemoryCache(true)
+                                .thumbnail(Glide.with(getContext()).load(R.drawable.loading_animation))
+                                .error(R.drawable.ic_loading_fail)
+                                .onlyRetrieveFromCache(true)
                                 .diskCacheStrategy(DiskCacheStrategy.DATA)
                                 .centerCrop()
                                 .into(iconView);
@@ -184,9 +186,9 @@ public class UserFragment extends Fragment {
                         Glide.with(view)
                                 .asDrawable()
                                 .load(storageReference)
-                                .placeholder(R.drawable.loading_icon)
-                                .error(R.drawable.loading_failed_icon)
-                                .skipMemoryCache(true)
+                                .thumbnail(Glide.with(getContext()).load(R.drawable.loading_animation))
+                                .error(R.drawable.ic_loading_fail)
+                                .onlyRetrieveFromCache(true)
                                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                                 .centerCrop()
                                 .into(iconView);
