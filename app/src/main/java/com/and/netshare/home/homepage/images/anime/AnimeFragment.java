@@ -125,6 +125,7 @@ public class AnimeFragment extends Fragment {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.e("home anime failure", e.getMessage());
+                        Toast.makeText(getContext(), R.string.error_network, Toast.LENGTH_SHORT).show();
                     }
                 });
     }
