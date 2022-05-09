@@ -66,7 +66,7 @@ public class LoginFragment extends Fragment {
             public void onClick(View view) {
                 String email = emailText.getText().toString().trim();
                 String password = passwordText.getText().toString();
-                if (!(email.equals(null) && password.equals(null))) {
+                if (!email.equals("") && !password.equals("")) {
                     mViewModel.setInfo(email, password, "email");
                     mAuth.signInWithEmailAndPassword(mViewModel.getEmail(), mViewModel.getPassword())
                             .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
@@ -80,7 +80,8 @@ public class LoginFragment extends Fragment {
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                        Toast.makeText(getContext(), R.string.login_fail_toast,
+                                        Log.d("signin error", task.getException().getMessage());
+                                        Toast.makeText(getContext(), task.getException().getMessage(),
                                                 Toast.LENGTH_SHORT).show();
                                     }
                                 }
