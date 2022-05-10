@@ -38,9 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private NavController navController;
     private AppBarConfiguration configuration;
     private static boolean isFirst = true;
-
     private long exitTime = 0;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
