@@ -1,4 +1,4 @@
-package com.and.netshare;
+package com.and.netshare.handlers;
 
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;

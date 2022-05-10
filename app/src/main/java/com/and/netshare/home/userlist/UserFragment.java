@@ -19,8 +19,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.and.netshare.CacheDataManager;
-import com.and.netshare.DataHandler;
+import com.and.netshare.handlers.CacheDataManager;
+import com.and.netshare.handlers.DataHandler;
 import com.and.netshare.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;

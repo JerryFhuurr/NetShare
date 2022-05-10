@@ -1,4 +1,4 @@
-package com.and.netshare.language;
+package com.and.netshare.handlers.language;
 
 import android.app.Activity;
 import android.content.Intent;

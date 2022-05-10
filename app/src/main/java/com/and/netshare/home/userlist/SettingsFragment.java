@@ -15,7 +15,7 @@ import androidx.preference.SwitchPreferenceCompat;
 import com.and.netshare.MainActivity;
 import com.and.netshare.R;
 import com.and.netshare.home.homepage.HomePageSettingsViewModel;
-import com.and.netshare.language.LanguageUtil;
+import com.and.netshare.handlers.language.LanguageUtil;
 
 public class SettingsFragment extends PreferenceFragmentCompat implements Preference.OnPreferenceChangeListener {
 

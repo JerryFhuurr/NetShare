@@ -11,7 +11,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager.widget.ViewPager;
 
-import com.and.netshare.ActivityManager;
+import com.and.netshare.handlers.ActivityManager;
 import com.and.netshare.R;
 import com.and.netshare.home.homepage.images.anime.AnimeFragment;
 import com.and.netshare.home.homepage.images.game.GamesFragment;

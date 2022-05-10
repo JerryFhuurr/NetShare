@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import com.and.netshare.MainActivity;
 import com.and.netshare.R;
-import com.and.netshare.DataHandler;
+import com.and.netshare.handlers.DataHandler;
 import com.and.netshare.login.ui.main.viewmodel.LoginViewModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

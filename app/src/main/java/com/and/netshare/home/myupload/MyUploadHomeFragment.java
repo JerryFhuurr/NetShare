@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.and.netshare.DataHandler;
+import com.and.netshare.handlers.DataHandler;
 import com.and.netshare.R;
 import com.and.netshare.home.homepage.images.SingleImage;
 import com.bumptech.glide.Glide;

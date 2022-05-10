@@ -1,4 +1,4 @@
-package com.and.netshare;
+package com.and.netshare.handlers;
 
 import static android.os.Environment.DIRECTORY_PICTURES;
 
@@ -12,6 +12,8 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.and.netshare.R;
 
 import java.io.File;
 import java.io.FileNotFoundException;

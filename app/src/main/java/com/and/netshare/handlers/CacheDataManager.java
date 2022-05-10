@@ -1,4 +1,4 @@
-package com.and.netshare;
+package com.and.netshare.handlers;
 
 import android.content.Context;
 import android.os.Environment;

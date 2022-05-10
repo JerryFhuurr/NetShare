@@ -18,7 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.and.netshare.DataHandler;
+import com.and.netshare.handlers.DataHandler;
 import com.and.netshare.R;
 import com.and.netshare.home.homepage.images.SingleImage;
 import com.and.netshare.home.homepage.images.SingleImageZoomActivity;

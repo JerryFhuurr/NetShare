@@ -1,4 +1,4 @@
-package com.and.netshare;
+package com.and.netshare.handlers;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,6 +8,8 @@ import android.os.Build;
 import android.os.FileUtils;
 import android.provider.MediaStore;
 import android.util.Log;
+
+import com.and.netshare.BuildConfig;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
