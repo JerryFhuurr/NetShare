@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.and.netshare.handlers.ActivityManager;
+import com.and.netshare.handlers.SoundHandler;
 import com.and.netshare.handlers.language.LanguageUtil;
 import com.and.netshare.login.LoginActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -99,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 bottomNavigationView.setVisibility(View.GONE);
             }
+            SoundHandler.playSoundClick(this);
         }));
     }
 

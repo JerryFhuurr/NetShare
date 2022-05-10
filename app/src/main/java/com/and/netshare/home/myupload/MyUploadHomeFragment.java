@@ -35,6 +35,7 @@ import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MyUploadHomeFragment extends Fragment {
 
@@ -150,7 +151,7 @@ public class MyUploadHomeFragment extends Fragment {
                         Glide.with(view)
                                 .asDrawable()
                                 .load(userIconRef)
-                                .thumbnail(Glide.with(getContext()).load(R.drawable.loading_animation))
+                                .thumbnail(Glide.with(requireContext()).load(R.drawable.loading_animation))
                                 .error(R.drawable.ic_loading_fail)
                                 .skipMemoryCache(true)
                                 .diskCacheStrategy(DiskCacheStrategy.DATA)
@@ -160,7 +161,7 @@ public class MyUploadHomeFragment extends Fragment {
                         Glide.with(view)
                                 .asDrawable()
                                 .load(userIconRef)
-                                .thumbnail(Glide.with(getContext()).load(R.drawable.loading_animation))
+                                .thumbnail(Glide.with(requireContext()).load(R.drawable.loading_animation))
                                 .error(R.drawable.ic_loading_fail)
                                 .skipMemoryCache(true)
                                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)

@@ -176,9 +176,8 @@ public class UserFragment extends Fragment {
                         Glide.with(view)
                                 .asDrawable()
                                 .load(storageReference)
-                                .thumbnail(Glide.with(getContext()).load(R.drawable.loading_animation))
+                                .placeholder(R.drawable.ic_file_loading)
                                 .error(R.drawable.ic_loading_fail)
-                                .onlyRetrieveFromCache(true)
                                 .diskCacheStrategy(DiskCacheStrategy.DATA)
                                 .centerCrop()
                                 .into(iconView);
@@ -186,9 +185,8 @@ public class UserFragment extends Fragment {
                         Glide.with(view)
                                 .asDrawable()
                                 .load(storageReference)
-                                .thumbnail(Glide.with(getContext()).load(R.drawable.loading_animation))
+                                .placeholder(R.drawable.ic_file_loading)
                                 .error(R.drawable.ic_loading_fail)
-                                .onlyRetrieveFromCache(true)
                                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                                 .centerCrop()
                                 .into(iconView);
