@@ -55,16 +55,16 @@ public class MainActivity extends AppCompatActivity {
         setupNavigation();
     }
 
-    private void checkLanguage(){
+    private void checkLanguage() {
         SharedPreferences sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(this);
         String language = sharedPreferences.getString("language_setting", "English");
         Log.d("language store", language);
-        if (isFirst){
+        if (isFirst) {
             isFirst = false;
             if (language.equals("English")) {
                 LanguageUtil.changeAppLanguage(this, "en", MainActivity.class);
-            }else if (language.equals("Simplified - Chinese")){
+            } else if (language.equals("Simplified - Chinese")) {
                 LanguageUtil.changeAppLanguage(this, "ch", MainActivity.class);
             }
         }
@@ -78,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(this);
         appThemeLoad(sharedPreferences, this);
+
+        SoundHandler.initSound(this);
 
         setSupportActionBar(toolbar);
     }
@@ -95,12 +97,16 @@ public class MainActivity extends AppCompatActivity {
     private void setBottomNavigationView() {
         navController.addOnDestinationChangedListener(((navController1, navDestination, bundle) -> {
             final int id = navDestination.getId();
-            if (id == R.id.homePageFragment || id == R.id.myFragment) {
+            if (id == R.id.homePageFragment) {
                 bottomNavigationView.setVisibility(View.VISIBLE);
-            } else {
+                SoundHandler.playMainPageSoundClick();
+            } else if (id == R.id.myFragment) {
+                bottomNavigationView.setVisibility(View.VISIBLE);
+                SoundHandler.playSoundClick();
+            } else if (id == R.id.userFragment) {
                 bottomNavigationView.setVisibility(View.GONE);
+                SoundHandler.playSoundClick();
             }
-            SoundHandler.playSoundClick(this);
         }));
     }
 

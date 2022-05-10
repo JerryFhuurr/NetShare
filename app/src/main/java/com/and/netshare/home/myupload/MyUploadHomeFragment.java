@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.and.netshare.handlers.DataHandler;
 import com.and.netshare.R;
+import com.and.netshare.handlers.SoundHandler;
 import com.and.netshare.home.homepage.images.SingleImage;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -93,11 +94,13 @@ public class MyUploadHomeFragment extends Fragment {
         loadData(tabImageRef2, v, 1);
         StorageReference tabImageRef3 = FirebaseStorage.getInstance().getReference().child("game_images");
         loadData(tabImageRef3, v, 2);
+        SoundHandler.initSound(requireContext());
 
         animeIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MyUploadsHandler.setNum(0);
+                SoundHandler.playSoundClick();
                 NavHostFragment.findNavController(MyUploadHomeFragment.this)
                         .navigate(R.id.mineImagesFragment);
             }
@@ -106,6 +109,7 @@ public class MyUploadHomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 MyUploadsHandler.setNum(1);
+                SoundHandler.playSoundClick();
                 NavHostFragment.findNavController(MyUploadHomeFragment.this)
                         .navigate(R.id.mineImagesFragment);
             }
@@ -114,6 +118,7 @@ public class MyUploadHomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 MyUploadsHandler.setNum(2);
+                SoundHandler.playSoundClick();
                 NavHostFragment.findNavController(MyUploadHomeFragment.this)
                         .navigate(R.id.mineImagesFragment);
             }
