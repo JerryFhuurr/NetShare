@@ -76,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences =
                 PreferenceManager.getDefaultSharedPreferences(this);
         appThemeLoad(sharedPreferences, this);
-
         SoundHandler.initSound(this);
 
         setSupportActionBar(toolbar);
