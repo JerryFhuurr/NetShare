@@ -17,7 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.and.netshare.MainActivity;
+import com.and.netshare.home.MainActivity;
 import com.and.netshare.R;
 import com.and.netshare.handlers.DataHandler;
 import com.and.netshare.login.ui.main.viewmodel.LoginViewModel;

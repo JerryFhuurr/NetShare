@@ -27,7 +27,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.and.netshare.MainActivity;
+import com.and.netshare.home.MainActivity;
 import com.and.netshare.handlers.PhotoUtils;
 import com.and.netshare.R;
 import com.bumptech.glide.Glide;

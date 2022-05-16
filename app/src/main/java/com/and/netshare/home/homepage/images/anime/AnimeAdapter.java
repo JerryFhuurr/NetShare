@@ -1,6 +1,7 @@
 package com.and.netshare.home.homepage.images.anime;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+
+import javax.net.ssl.SSLHandshakeException;
 
 public class AnimeAdapter extends RecyclerView.Adapter<AnimeAdapter.ViewHolder> {
     private ArrayList<SingleImage> imagesAnime;

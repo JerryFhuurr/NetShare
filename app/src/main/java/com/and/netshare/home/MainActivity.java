@@ -1,4 +1,4 @@
-package com.and.netshare;
+package com.and.netshare.home;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
 
+import com.and.netshare.R;
 import com.and.netshare.handlers.ActivityManager;
 import com.and.netshare.handlers.SoundHandler;
 import com.and.netshare.handlers.language.LanguageUtil;

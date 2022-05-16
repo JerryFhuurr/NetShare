@@ -12,7 +12,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreferenceCompat;
 
-import com.and.netshare.MainActivity;
+import com.and.netshare.home.MainActivity;
 import com.and.netshare.R;
 import com.and.netshare.home.homepage.HomePageSettingsViewModel;
 import com.and.netshare.handlers.language.LanguageUtil;
