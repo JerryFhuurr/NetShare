@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mainAuth;
     private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
     private BottomNavigationView bottomNavigationView;
     private Toolbar toolbar;
     private NavController navController;
