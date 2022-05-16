@@ -26,5 +26,8 @@ Many people like sharing pictures with others sometimes.However, large platforms
 * send messages between accounts
 * upload image from camera
 
+## Introduction Video
+It's on YouTube now, link: https://youtu.be/JCcJFiFJank
+
 ## Download (will use other server in the future)
 Link: https://cowtransfer.com/s/49481374894542 or access [ cowtransfer.com ] and input extract code: 4dayw8 to download
